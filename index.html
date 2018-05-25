@@ -84,7 +84,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="吸烟者问题"><a href="#吸烟者问题" class="headerlink" title="吸烟者问题"></a>吸烟者问题</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>假设一个系统中有三个抽烟者进程，每个抽烟者不断地卷烟并抽烟。抽烟者卷起并抽掉一颗烟需要有三种材料：烟草、纸和胶水。一个抽烟者有烟草，一个有纸，另一个有胶水。系统中还有两个供应者进程，它们无限地供应所有三种材料，但每次仅轮流提供三种材料中的两种。得到缺失的两种材料的抽烟者在卷起并抽掉一颗烟后会发信号通知供应者，让它继续提供另外的两种材料。这一过程重复进行。  请用以上介绍的IPC同步机制编程，实现该问题要求的功能。  </p>
+        <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>假设一个系统中有三个抽烟者进程，每个抽烟者不断地卷烟并抽烟。抽烟者卷起并抽掉一颗烟需要有三种材料：烟草、纸和胶水。一个抽烟者有烟草，一个有纸，另一个有胶水。系统中还有两个供应者进程，它们无限地供应所有三种材料，但每次仅轮流提供三种材料中的两种。得到缺失的两种材料的抽烟者在卷起并抽掉一颗烟后会发信号通知供应者，让它继续提供另外的两种材料。这一过程重复进行。  请用以上介绍的IPC同步机制编程，实现该问题要求的功能。  </p>
 <h2 id="问题背景知识"><a href="#问题背景知识" class="headerlink" title="问题背景知识"></a>问题背景知识</h2><p>在 linux 系统中可以利用进程间通信（interprocess communication ）IPC 中的 3 个对象：共享内存、信号灯数组、消息队列，来解决协作并发进程间的同步与互斥的问题。</p>
 <p>1）共享内存是 OS 内核为并发进程间交换数据而提供的一块内存区（段）。如果段的权限设置恰当，每个要访问该段内存的进程都可以把它映射到自己私有的地址空间中。如果一进程更新了段中数据，那么其他进程立即会看到这 一更新。进程创建的段也可由另一进程读写。linux  中可用命令 “ipcs -m“观察共享内存情况。</p>
 <p>2) 信号灯数组是 OS  内核控制并发进程间共享资源的一种进程同步与互斥机制。linux  中可用命令“ ipcs -s ”观察信号灯数组的情况。</p>
@@ -101,7 +101,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/25/吸烟者问题/" data-id="cjhlpeuw30001escqj2tvqftn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/25/吸烟者问题/" data-id="cjhlphuoy000174cqfibp2q9o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -146,7 +146,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/22/hello-world/" data-id="cjhlpeuvr0000escq0hmkfu1j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/22/hello-world/" data-id="cjhlphuop000074cqnf3z95kp" class="article-share-link">Share</a>
       
       
     </footer>
