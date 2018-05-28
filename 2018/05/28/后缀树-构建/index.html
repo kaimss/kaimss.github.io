@@ -15,8 +15,8 @@
 <meta property="og:description" content="1.后缀树简介后缀树是一种数据结构，一个具有m个字符的字符串S的后缀树T，就是一个包含一个根节点的有向树，该树恰好带有m+1个叶子，这些叶子被赋予从0到m的标号。每一个内部节点，除了根节点以外，都至少有两个子节点，而且每条边都用S的一个子串来标识。出自同一节点的任意两条边的标识不会以相同的字符开始。后缀树的关键特征是：对于任何叶子i，从根节点到该叶子所经历的边的所有标识串连起来后恰好拼出S 的从i">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2018/05/28/后缀树-构建/SuffixTree.png">
-<meta property="og:image" content="http://yoursite.com/2018/05/28/后缀树-构建/banana#.png">
-<meta property="og:updated_time" content="2018-05-28T15:55:43.308Z">
+<meta property="og:image" content="http://yoursite.com/2018/05/28/后缀树-构建/banana.png">
+<meta property="og:updated_time" content="2018-05-28T15:59:23.335Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="后缀树--构建">
 <meta name="twitter:description" content="1.后缀树简介后缀树是一种数据结构，一个具有m个字符的字符串S的后缀树T，就是一个包含一个根节点的有向树，该树恰好带有m+1个叶子，这些叶子被赋予从0到m的标号。每一个内部节点，除了根节点以外，都至少有两个子节点，而且每条边都用S的一个子串来标识。出自同一节点的任意两条边的标识不会以相同的字符开始。后缀树的关键特征是：对于任何叶子i，从根节点到该叶子所经历的边的所有标识串连起来后恰好拼出S 的从i">
@@ -92,7 +92,7 @@
         <h1 id="1-后缀树简介"><a href="#1-后缀树简介" class="headerlink" title="1.后缀树简介"></a>1.后缀树简介</h1><p>后缀树是一种数据结构，一个具有m个字符的字符串S的后缀树T，就是一个包含一个根节点的有向树，该树恰好带有m+1个叶子，这些叶子被赋予从0到m的标号。每一个内部节点，除了根节点以外，都至少有两个子节点，而且每条边都用S的一个子串来标识。出自同一节点的任意两条边的标识不会以相同的字符开始。后缀树的关键特征是：对于任何叶子i，从根节点到该叶子所经历的边的所有标识串连起来后恰好拼出S 的从i位置开始的后缀，即S[I,…,m]。(这里有一个规定，即字符串中不能有空格，且最后一个字符不能与前面任何一个字符相同)</p>
 <p><img src="/2018/05/28/后缀树-构建/SuffixTree.png" alt="SuffixTree"></p>
 <p>为了方便理解概念，给出一个例子，下图是字符串”banana#”的后缀树。</p>
-<p><img src="/2018/05/28/后缀树-构建/banana#.png" alt="banana#"> </p>
+<p><img src="/2018/05/28/后缀树-构建/banana.png" alt="banana"> </p>
 <h1 id="2-算法设计"><a href="#2-算法设计" class="headerlink" title="2.算法设计"></a>2.算法设计</h1><p>源代码参见我的<a href="https://github.com/kaimss/Suffixtree" target="_blank" rel="noopener">Github</a>。</p>
 <p>本文章利用的是Ukkonen算法构建后缀树，在 1995 年，Esko Ukkonen 发表了论文<a href="http://www.cs.helsinki.fi/u/ukkonen/SuffixT1withFigs.pdf" target="_blank" rel="noopener">《On-line construction of suffix trees》</a>，描述了在线性时间内构建后缀树的方法。 本文章参考<a href="http://vickyqi.com/2015/11/27/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%90%8E%E7%BC%80%E6%A0%91%EF%BC%88%E9%99%84Java%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%EF%BC%89/" target="_blank" rel="noopener">数据结构系列——后缀树（附Java实现代码）</a>，理解之后做了适当的改进并用c++语言实现，代码在dev-cpp 5.11已测试。</p>
 <p>首先解释一下将要用到的几个概念：<strong>活动点(包括活动节点，活动边，活动长度)</strong>，<strong>剩余后缀数</strong>。活动点中的<strong>活动节点</strong>：是用于查找一个后缀是否已经存在这棵树里，即查找的时候从活动节点的子节点开始查找，同时当需要插入边的时候也是插入到该节点下；而<strong>活动边</strong>则是每次需要进行分割的边，即成为活动边就意味着需要被分割；而<strong>活动长度</strong>则是指明从活动边的哪个位置开始分割。<strong>剩余后缀数</strong>是我们需要插入的后缀的数量，说明程序员点就是缓存的数量，因为每次如果要插入的后缀存在，则缓存起来。另外还用到了后缀字符数组，表明将要处理的后缀字符。</p>
@@ -128,7 +128,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/28/后缀树-构建/" data-id="cjhqfr4vd0001eocq3tbhpv7z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/28/后缀树-构建/" data-id="cjhqfv8l60002hccq55ytfq5m" class="article-share-link">Share</a>
       
       
     </footer>
