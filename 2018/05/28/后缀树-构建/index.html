@@ -14,13 +14,12 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1.后缀树简介后缀树是一种数据结构，一个具有m个字符的字符串S的后缀树T，就是一个包含一个根节点的有向树，该树恰好带有m+1个叶子，这些叶子被赋予从0到m的标号。每一个内部节点，除了根节点以外，都至少有两个子节点，而且每条边都用S的一个子串来标识。出自同一节点的任意两条边的标识不会以相同的字符开始。后缀树的关键特征是：对于任何叶子i，从根节点到该叶子所经历的边的所有标识串连起来后恰好拼出S 的从i">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2018/05/28/后缀树-构建/SuffixTree.png">
 <meta property="og:image" content="http://yoursite.com/2018/05/28/后缀树-构建/banana.png">
-<meta property="og:updated_time" content="2018-05-28T15:59:23.335Z">
+<meta property="og:updated_time" content="2018-05-28T16:04:45.408Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="后缀树--构建">
 <meta name="twitter:description" content="1.后缀树简介后缀树是一种数据结构，一个具有m个字符的字符串S的后缀树T，就是一个包含一个根节点的有向树，该树恰好带有m+1个叶子，这些叶子被赋予从0到m的标号。每一个内部节点，除了根节点以外，都至少有两个子节点，而且每条边都用S的一个子串来标识。出自同一节点的任意两条边的标识不会以相同的字符开始。后缀树的关键特征是：对于任何叶子i，从根节点到该叶子所经历的边的所有标识串连起来后恰好拼出S 的从i">
-<meta name="twitter:image" content="http://yoursite.com/2018/05/28/后缀树-构建/SuffixTree.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/05/28/后缀树-构建/banana.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -90,7 +89,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="1-后缀树简介"><a href="#1-后缀树简介" class="headerlink" title="1.后缀树简介"></a>1.后缀树简介</h1><p>后缀树是一种数据结构，一个具有m个字符的字符串S的后缀树T，就是一个包含一个根节点的有向树，该树恰好带有m+1个叶子，这些叶子被赋予从0到m的标号。每一个内部节点，除了根节点以外，都至少有两个子节点，而且每条边都用S的一个子串来标识。出自同一节点的任意两条边的标识不会以相同的字符开始。后缀树的关键特征是：对于任何叶子i，从根节点到该叶子所经历的边的所有标识串连起来后恰好拼出S 的从i位置开始的后缀，即S[I,…,m]。(这里有一个规定，即字符串中不能有空格，且最后一个字符不能与前面任何一个字符相同)</p>
-<p><img src="/2018/05/28/后缀树-构建/SuffixTree.png" alt="SuffixTree"></p>
 <p>为了方便理解概念，给出一个例子，下图是字符串”banana#”的后缀树。</p>
 <p><img src="/2018/05/28/后缀树-构建/banana.png" alt="banana"> </p>
 <h1 id="2-算法设计"><a href="#2-算法设计" class="headerlink" title="2.算法设计"></a>2.算法设计</h1><p>源代码参见我的<a href="https://github.com/kaimss/Suffixtree" target="_blank" rel="noopener">Github</a>。</p>
@@ -128,7 +126,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/28/后缀树-构建/" data-id="cjhqfv8l60002hccq55ytfq5m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/28/后缀树-构建/" data-id="cjhqg3g9p00020wcqzz93bp49" class="article-share-link">Share</a>
       
       
     </footer>
@@ -138,9 +136,9 @@
 <nav id="article-nav">
   
   
-    <a href="/2018/05/28/test/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/05/25/吸烟者问题/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">test</div>
+      <div class="article-nav-title">吸烟者问题</div>
     </a>
   
 </nav>
@@ -178,10 +176,6 @@
         
           <li>
             <a href="/2018/05/28/后缀树-构建/">后缀树--构建</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/28/test/">test</a>
           </li>
         
           <li>
