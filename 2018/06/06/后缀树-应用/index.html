@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>后缀树-应用 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="上一篇博客中介绍了后缀树的Ukkon算法构建，本次博客介绍后缀树的部分应用。 1.查找一个字符串S是否包含子字符串T查找后缀树中是否以子字符串为前缀的支路，若有则包含，否则不包含。 首先设置一个compare(string s1,string s2)方法，比较s1和s2，如果s2是s1的前缀，返回已匹配的长度，如果s1是s2的前缀，返回0，否则，表示不能匹配，此时返回-1。这样，从根节点开始，搜寻">
+<meta property="og:type" content="article">
+<meta property="og:title" content="后缀树-应用">
+<meta property="og:url" content="http://yoursite.com/2018/06/06/后缀树-应用/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="上一篇博客中介绍了后缀树的Ukkon算法构建，本次博客介绍后缀树的部分应用。 1.查找一个字符串S是否包含子字符串T查找后缀树中是否以子字符串为前缀的支路，若有则包含，否则不包含。 首先设置一个compare(string s1,string s2)方法，比较s1和s2，如果s2是s1的前缀，返回已匹配的长度，如果s1是s2的前缀，返回0，否则，表示不能匹配，此时返回-1。这样，从根节点开始，搜寻">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-06-06T10:25:13.281Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="后缀树-应用">
+<meta name="twitter:description" content="上一篇博客中介绍了后缀树的Ukkon算法构建，本次博客介绍后缀树的部分应用。 1.查找一个字符串S是否包含子字符串T查找后缀树中是否以子字符串为前缀的支路，若有则包含，否则不包含。 首先设置一个compare(string s1,string s2)方法，比较s1和s2，如果s2是s1的前缀，返回已匹配的长度，如果s1是s2的前缀，返回0，否则，表示不能匹配，此时返回-1。这样，从根节点开始，搜寻">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-后缀树-应用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/06/后缀树-应用/" class="article-date">
+  <time datetime="2018-06-06T03:43:03.000Z" itemprop="datePublished">2018-06-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      后缀树-应用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上一篇博客中介绍了后缀树的Ukkon算法构建，本次博客介绍后缀树的部分应用。</p>
+<h2 id="1-查找一个字符串S是否包含子字符串T"><a href="#1-查找一个字符串S是否包含子字符串T" class="headerlink" title="1.查找一个字符串S是否包含子字符串T"></a>1.查找一个字符串S是否包含子字符串T</h2><p>查找后缀树中是否以子字符串为前缀的支路，若有则包含，否则不包含。</p>
+<p>首先设置一个compare(string s1,string s2)方法，比较s1和s2，如果s2是s1的前缀，返回已匹配的长度，如果s1是s2的前缀，返回0，否则，表示不能匹配，此时返回-1。这样，从根节点开始，搜寻每个节点所连接的边，用compare来比较边上的字符（s2）和待查找的字符（s1），如果compare返回零，表示当前边已经存在待查找的字符，故直接返回true；如果compare返回-1，表示不匹配，则直接返回false；如果compare返回大于零的数，则需要用递归函数深入此边所连接的下一个节点进行查找，直到匹配或不匹配。 </p>
+<p>然后设置一个search(Node <em>p,string str,Node </em>&amp;cur)方法，再此方法中，遍历节点p的每一条子边，将子边作为s2，而传入的字符串参数str作为s1传入compare方法中进行比较。如果返回s=0，表明完全匹配，将此边连接的节点地址传给cur，然后返回true。如果返回s=-1，表明不能匹配，直接返回false。否则，将str截取s，继续递归进入search方法。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****************************************************************************</span></span><br><span class="line"><span class="comment">**compare(string s1,string s2)方法： </span></span><br><span class="line"><span class="comment">**比较s1和s2，如果s1不是s2的前缀，返回-1，如果s1是s2的前缀，返回0， </span></span><br><span class="line"><span class="comment">**如果s2是s1的前缀，返回已匹配的长度 </span></span><br><span class="line"><span class="comment">****************************************************************************/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="built_in">string</span> s1,<span class="built_in">string</span> s2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len1=s1.length(),len2=s2.length();</span><br><span class="line">	<span class="keyword">bool</span> signal;</span><br><span class="line">	<span class="keyword">if</span>(len1&lt;=len2)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len1;i++)</span><br><span class="line">	    &#123;</span><br><span class="line">		   <span class="keyword">if</span>(s1[i]!=s2[i])</span><br><span class="line">		      <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	    &#125;</span><br><span class="line">	    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(len2==<span class="number">0</span>)</span><br><span class="line">		   <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len2;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(s1[i]!=s2[i])</span><br><span class="line">			   <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> len2;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****************************************************************************</span></span><br><span class="line"><span class="comment">**search(Node *p,string str,Node *&amp;cur)方法： </span></span><br><span class="line"><span class="comment">**在节点p的孩子中搜寻与字符串str匹配的，如果是完全匹配的，就将</span></span><br><span class="line"><span class="comment">**此节点的地址传给cur </span></span><br><span class="line"><span class="comment">****************************************************************************/</span></span><br><span class="line"><span class="keyword">bool</span> SuffixTree::search(Node *p,<span class="built_in">string</span> str,Node *&amp;cur)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">bool</span> signal;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;p-&gt;count;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> s=compare(str,p-&gt;child[i]-&gt;str);</span><br><span class="line">		<span class="keyword">if</span>(s==<span class="number">0</span>) </span><br><span class="line">		&#123;</span><br><span class="line">			cur=p-&gt;child[i]-&gt;below;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(s==<span class="number">-1</span>)</span><br><span class="line">		   signal=<span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			str.erase(<span class="number">0</span>,s);</span><br><span class="line">			signal=search(p-&gt;child[i]-&gt;below,str,cur);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> signal;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-统计字符串T出现次数"><a href="#2-统计字符串T出现次数" class="headerlink" title="2.统计字符串T出现次数"></a>2.统计字符串T出现次数</h2><p>后缀树中，具有相同前缀的字符串都被收纳到同一个节点下，因此只要在某条边匹配到T后将其连接的节点地址保存，用另外一个函数计算保存节点下的叶节点的个数即可以得到T出现的次数 。计算某个节点下的叶节点的函数为countleaf(Node *p)，遍历节点p下通过边连接的节点，考察节点的标识符，前面提到的flag，如果flag&lt;0，则说明此节点是内部节点，此时需要递归进入此内部节点，如果flag&gt;=0，则说明此节点是叶节点，此时需要将计数器加一，最后返回计数即可。</p>
+<p>匹配的节点怎么查找呢，这就需要用到上一个方法了，用search方法将匹配到的节点返回，再用count leaf方法计算叶节点树就可以统计到字符串T的出现次数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****************************************************************************</span></span><br><span class="line"><span class="comment">**countleaf(Node *p)方法： </span></span><br><span class="line"><span class="comment">**计算节点p的孩子中叶节点个数 </span></span><br><span class="line"><span class="comment">****************************************************************************/</span></span><br><span class="line"><span class="keyword">int</span> SuffixTree::countleaf(Node *p)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> counts=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span>(p-&gt;flag&gt;=<span class="number">0</span>)<span class="comment">//如果当前节点是叶节点，直接返回0 </span></span><br><span class="line">	   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">else</span> </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;p-&gt;count;i++)<span class="comment">//依次判断节点下的节点是否为叶节点，是则令counts加一，否则递归进入 </span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(p-&gt;child[i]-&gt;below-&gt;flag&gt;=<span class="number">0</span>)</span><br><span class="line">			   counts++;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			   counts+=countleaf(p-&gt;child[i]-&gt;below);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> counts;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-查找最长重复字符串"><a href="#3-查找最长重复字符串" class="headerlink" title="3.查找最长重复字符串"></a>3.查找最长重复字符串</h2><p>具体思路是采用递归，深入每个分支的最后一个内部节点，将其地址保存到一个数组中，然后在比较每个节点向上到根节点所拼出的字符串的长度，将长度最大者返回即可。 </p>
+<p>首先定义一个保存每个分支的最后一个内部节点的方法finddeepestr(Node <em>a[],Node </em>p,int &amp;cal)，遍历p节点下连接的节点，通过flag来判断是否为内部节点，若是内部节点，则再通过judgeleaf方法判断该节点下的直接子节点是否均为叶节点，若是，则表明p节点是该分支的最后一个内部节点，若不是，则递归进入finddeepestr函数。若不是内部节点，则表明p节点不是该分支的最后一个内部节点，执行continue。</p>
+<p>找到每一个分支的最长重复字符串后，接下来就只需比较了，此处定义了从某节点向上拼出字符串的函数getstr(Node *node)，从该节点（node）不断向上循环拼接经过的边的字符串，直到到达根节点。这样就可以得到该节点的字符串了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****************************************************************************</span></span><br><span class="line"><span class="comment">**findeepest(Node *a[],Node *p,int &amp;cal)方法： </span></span><br><span class="line"><span class="comment">**记录p节点下每个分支的最深重复字符串，并将其记录在数组a中 ，用引用变量cal来计数 </span></span><br><span class="line"><span class="comment">****************************************************************************/</span></span><br><span class="line"><span class="keyword">void</span> SuffixTree::finddeepestr(Node *a[],Node *p,<span class="keyword">int</span> &amp;cal)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;p-&gt;count;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		Node *t=p-&gt;child[i]-&gt;below;</span><br><span class="line">		<span class="keyword">if</span>(t-&gt;flag&gt;=<span class="number">0</span>)</span><br><span class="line">		   <span class="keyword">continue</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(judgeleaf(t))</span><br><span class="line">		&#123;</span><br><span class="line">			a[cal++]=t;	</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> </span><br><span class="line">		    finddeepestr(a,t,cal);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****************************************************************************</span></span><br><span class="line"><span class="comment">**getst(Node *p)方法： </span></span><br><span class="line"><span class="comment">**拼接从根节点到p节点的所经边的字符串并返回 </span></span><br><span class="line"><span class="comment">****************************************************************************/</span></span><br><span class="line"><span class="built_in">string</span> SuffixTree::getstr(Node *node)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">string</span> str;</span><br><span class="line">	<span class="keyword">if</span>(node==root)</span><br><span class="line">	    <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">	Edge *edge=node-&gt;parent;</span><br><span class="line">	<span class="keyword">while</span>(node!=root)</span><br><span class="line">	&#123;</span><br><span class="line">		edge=node-&gt;parent;</span><br><span class="line">		str=edge-&gt;str+str;</span><br><span class="line">		node=edge-&gt;above;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/06/06/后缀树-应用/" data-id="cji2ywjmo0000vwcq3ris4cow" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/28/后缀树-构建/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">后缀树--构建</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/06/06/后缀树-应用/">后缀树-应用</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/28/后缀树-构建/">后缀树--构建</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/25/吸烟者问题/">吸烟者问题</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/22/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
