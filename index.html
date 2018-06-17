@@ -62,6 +62,73 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-网页-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/16/网页-1/" class="article-date">
+  <time datetime="2018-06-16T15:18:13.000Z" itemprop="datePublished">2018-06-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/16/网页-1/">网页-1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-页面跳转"><a href="#1-页面跳转" class="headerlink" title="1.页面跳转"></a>1.页面跳转</h1><h3 id="（1）请求转发（RequestDispatcher）："><a href="#（1）请求转发（RequestDispatcher）：" class="headerlink" title="（1）请求转发（RequestDispatcher）："></a>（1）请求转发（RequestDispatcher）：</h3><p>客户端首先发送一个请求到服务器端，服务器端发现匹配的servlet，并指定它去执行，当这个servlet执行完之后，它要调用request.getRequestDispatcher().forword()方法，把请求转发给指定的jsp,整个流程都是在服务器端完成的，而且是在同一个请求里面完成的，因此servlet和jsp共享的是同一个request，最后这个JSP返回给客户端一个响应。整个过程是一个请求，一个响应。 </p>
+<p>当用RequestDispatcher请求转发后，地址栏不变; </p>
+<p>可以采用url传值，及request.setAttribute()传值；</p>
+<h3 id="（2）重定向（sendRedirect）："><a href="#（2）重定向（sendRedirect）：" class="headerlink" title="（2）重定向（sendRedirect）："></a>（2）重定向（sendRedirect）：</h3><p>客户发送一个请求到服务器，服务器匹配servlet，这都和请求转发一样，servlet处理完之后调用了response.sendRedirect()这个方法，这个方法是response的方法，所以，当这个servlet处理完之后，看到response.senRedirect()方法，立即向客户端返回这个响应，响应行告诉客户端你必须要再发送一个请求，去访问另外一个jsp，紧接着客户端受到这个请求后，立刻发出一个新的请求，去请求这个jsp,这里两个请求互不干扰，相互独立。在sendRedirect()里面是两个请求，两个响应。 </p>
+<p>当用sendRedirect重定向后，地址栏改变为新的JSP页面的地址。 </p>
+<p>可以采用url传值，不能用request.setAttribute()传值；</p>
+<h1 id="2-cookie和session会话"><a href="#2-cookie和session会话" class="headerlink" title="2.cookie和session会话"></a>2.cookie和session会话</h1><h3 id="（1）cookie"><a href="#（1）cookie" class="headerlink" title="（1）cookie"></a>（1）cookie</h3><p>特点：（1）cookie存储在客户端，浏览器在清除浏览信息时会有cookie清除选项。</p>
+<p>　　　（2）cookie每人存一份。</p>
+<p>　　　（3）cookie没有默认过期时间。</p>
+<p>　　　（4）只能存储字符串。</p>
+<p>　　　　由以上特点可以总结出cookie的特点是不安全，不会对服务器造成压力。　</p>
+<p>应用：</p>
+<p>下面是一个cookie创建，保存值，取出值的例子。</p>
+<p>在a页面中，首先先声明一个cookie：Cookie cookie_id = new Cookie(“username”, value);其中第一个参数是这个cookie保存的名字，第二个是cookie的值。然后用“response.addCookie(cookie_id);”添加cookie，另外也可以设置最大生存时间，如果不设置代表关闭浏览器的时候cookie失效。</p>
+<p>在b页面中，可以通过“Cookie[] username=request.getCookie();”获得Cookie，这时cookie就在username变量中了，如果有多个值，就需要遍历。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Cookie idCookie = <span class="keyword">new</span> Cookie(<span class="string">"id"</span>, reader.id+<span class="string">""</span>);</span><br><span class="line">idCookie.setMaxAge(<span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span> * <span class="number">3</span>); <span class="comment">//设置Cookie的有效期为3天</span></span><br><span class="line">Cookie pwdCookie = <span class="keyword">new</span> Cookie(<span class="string">"password"</span>, reader.password);</span><br><span class="line">pwdCookie.setMaxAge(<span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span> * <span class="number">3</span>);<span class="comment">//设置Cookie的有效期为3天</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">String id = <span class="string">""</span>;</span><br><span class="line">String password = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取当前站点的所有Cookie</span></span><br><span class="line">Cookie[] cookies = request.getCookies();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cookies.length; i++) &#123;<span class="comment">//对cookies中的数据进行遍历，找到用户名、密码的数据</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="string">"id"</span>.equals(cookies[i].getName())) &#123;</span><br><span class="line">        id = cookies[i].getValue();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"password"</span>.equals(cookies[i].getName())) &#123;</span><br><span class="line">        password = cookies[i].getValue();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p># </p>
+<h3 id="（2）session"><a href="#（2）session" class="headerlink" title="（2）session"></a>（2）session</h3><p><strong>特点：</strong>（1）session是存储在服务器；</p>
+<p>　　   （2）session每个人（登陆者）存一份；</p>
+<p>　　　（3）session有默认的过期时间；（如果登录的人过多，数据就会太多，由于存储在服务器，会给服务器造成压力，过一定的时间会清除掉）</p>
+<p>　　　（4）session里面可以存储任意类型的数据。</p>
+<p>​             由以上特点可以总结出session的特点是比较<strong>安全</strong>。缺点是对服务器造成一定的压力。</p>
+<p><strong>应用：</strong></p>
+<p>可以用”HttpSession session = request.getSession();” 创建获取一个session，然后”session.setAttribute(‘usrid’, userid);” 向session中添加值，然后，用”session.getAttribute(‘userid’);”获取添加的值。</p>
+<h1 id="3-form表单提交"><a href="#3-form表单提交" class="headerlink" title="3.form表单提交"></a>3.form表单提交</h1><p>（1）利用submit按钮实现提交，当点击submit按钮时，触发onclick事件，由JavaScript里函数判断输入内容是否为空，如果为空，返回false, 不提交，如果不为空，提交到由action指定的地址。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">         function check() &#123;</span><br><span class="line">              if(form.userId.value==&apos;&apos;) &#123;</span><br><span class="line">                    alert(&quot;请输入用户帐号!&quot;);</span><br><span class="line">                    form.userId.focus();</span><br><span class="line">                    return false;</span><br><span class="line">               &#125;</span><br><span class="line">               if(form.password.value==&apos;&apos;)&#123;</span><br><span class="line">                    alert(&quot;请输入登录密码!&quot;);</span><br><span class="line">                    form.password.focus();</span><br><span class="line">                    return false;</span><br><span class="line">                 &#125;</span><br><span class="line">                 return true;</span><br><span class="line">         &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;form action=&quot;#&quot; method=&quot;post&quot;&gt;</span><br><span class="line">    用户帐号&lt;input type=text name=&quot;userId&quot; size=&quot;18&quot; value=&quot;&quot; &gt;&lt;br&gt;</span><br><span class="line">    登录密码&lt;input type=&quot;password&quot; name=&quot;password&quot; size=&quot;19&quot; value=&quot;&quot;/&gt;      </span><br><span class="line">           &lt;input type=submit name=&quot;submit1&quot; value=&quot;登陆&quot; onclick=&quot;return check()&quot;&gt;  </span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>（2）利用button按钮实现提交，当点击button按钮时，触发onclick事件，由JavaScript里函数判断输入内容是否为空，如果为空，返回false, 不提交，如果不为空，提交到由action指定的地址，由于button按钮不具备自动提交的功能，所以由JavaScript实现提交。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">         function check() &#123;</span><br><span class="line">              if(form.userId.value==&apos;&apos;) &#123;</span><br><span class="line">                    alert(&quot;请输入用户帐号!&quot;);</span><br><span class="line">                    form.userId.focus();</span><br><span class="line">                    return;</span><br><span class="line">               &#125;</span><br><span class="line">               if(form.password.value==&apos;&apos;)&#123;</span><br><span class="line">                    alert(&quot;请输入登录密码!&quot;);</span><br><span class="line">                    form.password.focus();</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">                  document.myform.submit();</span><br><span class="line">            &#125;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;form action=&quot;#&quot; name=&quot;myform&quot; method=&quot;post&quot;&gt;</span><br><span class="line">    用户帐号&lt;input type=text name=&quot;userId&quot; size=&quot;18&quot; value=&quot;&quot; &gt;&lt;br&gt;</span><br><span class="line">    登录密码&lt;input type=&quot;password&quot; name=&quot;password&quot; size=&quot;19&quot; value=&quot;&quot;/&gt;      </span><br><span class="line">    &lt;input type=button name=&quot;submit1&quot; value=&quot;登陆&quot; onclick=&quot;check()&quot;&gt;  </span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>（3）利用submit按钮实现提交，当点击submit按钮时，先触发onsubmit事件，由JavaScript里函数判断输入内容是否为空，如果为空，返回false, 不提交，如果不为空，提交到由action指定的地址。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">         function check() &#123;</span><br><span class="line">              if(form.userId.value==&apos;&apos;) &#123;</span><br><span class="line">                    alert(&quot;请输入用户帐号!&quot;);</span><br><span class="line">                    form.userId.focus();</span><br><span class="line">                    return false;</span><br><span class="line">               &#125;</span><br><span class="line">               if(form.password.value==&apos;&apos;)&#123;</span><br><span class="line">                    alert(&quot;请输入登录密码!&quot;);</span><br><span class="line">                    form.password.focus();</span><br><span class="line">                    return false;</span><br><span class="line">                &#125;</span><br><span class="line">                return true;</span><br><span class="line">         &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;form action=&quot;#&quot; method=&quot;post&quot; onsubmit=&quot;return check()&quot;&gt;</span><br><span class="line">    用户帐号&lt;input type=text name=&quot;userId&quot; size=&quot;18&quot; value=&quot;&quot; &gt;&lt;br&gt;</span><br><span class="line">    登录密码&lt;input type=&quot;password&quot; name=&quot;password&quot; size=&quot;19&quot; value=&quot;&quot;/&gt;      </span><br><span class="line">    &lt;input type=submit name=&quot;submit1&quot; value=&quot;登陆&quot;&gt; </span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/06/16/网页-1/" data-id="cjiif1jyb000164cqny00qt7i" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-后缀树-应用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/06/06/后缀树-应用/" class="article-date">
@@ -102,7 +169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/06/后缀树-应用/" data-id="cji2ywjmo0000vwcq3ris4cow" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/06/后缀树-应用/" data-id="cjiif1jz6000464cq8fi4k4lq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -172,7 +239,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/28/后缀树-构建/" data-id="cji2ywjo80001vwcq9a36du2r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/28/后缀树-构建/" data-id="cjiif1jz4000364cqfv1driw8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -221,7 +288,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/25/吸烟者问题/" data-id="cji2ywjoo0003vwcqso5xpvye" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/25/吸烟者问题/" data-id="cjiif1jz1000264cqc16elkof" class="article-share-link">Share</a>
       
       
     </footer>
@@ -266,7 +333,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/22/hello-world/" data-id="cji2ywjog0002vwcqzhp27glu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/22/hello-world/" data-id="cjiif1jxa000064cq45xlt2se" class="article-share-link">Share</a>
       
       
     </footer>
@@ -305,6 +372,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/06/16/网页-1/">网页-1</a>
+          </li>
         
           <li>
             <a href="/2018/06/06/后缀树-应用/">后缀树-应用</a>
