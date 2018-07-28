@@ -62,6 +62,196 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-maltab的矩阵运算" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/28/maltab的矩阵运算/" class="article-date">
+  <time datetime="2018-07-28T13:14:44.000Z" itemprop="datePublished">2018-07-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/28/maltab的矩阵运算/">maltab的矩阵运算</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-特殊矩阵"><a href="#1-特殊矩阵" class="headerlink" title="1.特殊矩阵"></a>1.特殊矩阵</h1><table>
+<thead>
+<tr>
+<th style="text-align:center">命令函数</th>
+<th style="text-align:left">功能说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">[]</td>
+<td style="text-align:left">生成空矩阵。</td>
+</tr>
+<tr>
+<td style="text-align:center">zeros(m,n)</td>
+<td style="text-align:left">生成一个m行、n列的元素全为0的矩阵。</td>
+</tr>
+<tr>
+<td style="text-align:center">ones(m,n)</td>
+<td style="text-align:left">生成一个m行、n列的元素全为1的矩阵。</td>
+</tr>
+<tr>
+<td style="text-align:center">eye(m,n)</td>
+<td style="text-align:left">生成一个m行、n列的单位矩阵（主对角线的元素全为1，其余元素全为0）。</td>
+</tr>
+<tr>
+<td style="text-align:center">rand(m,n)</td>
+<td style="text-align:left">生成一个 m 行、n 列的[0,1]区间上均匀分布的随机数矩阵。</td>
+</tr>
+<tr>
+<td style="text-align:center">randn(m, n)</td>
+<td style="text-align:left">生成一个 m 行、n 列的标准正态分布的随机数矩阵。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="2-矩阵的操作"><a href="#2-矩阵的操作" class="headerlink" title="2.矩阵的操作"></a>2.矩阵的操作</h1><table>
+<thead>
+<tr>
+<th>表达式或命令函数</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A(:)</td>
+<td>依次提取矩阵A 的每一列，拉伸为一个列向量。</td>
+</tr>
+<tr>
+<td>A([i1,:i2],[j1:j2])</td>
+<td>提取矩阵的第i1~i2行，第j1~j2列，构成新矩阵。</td>
+</tr>
+<tr>
+<td>A([i1,i2,i3,i4],:)</td>
+<td>提取矩阵的第i1,i2,i3,i4行，构成新矩阵。</td>
+</tr>
+<tr>
+<td>A(:,[j1,j2,j3,j4])</td>
+<td>提取矩阵的第j1,j2,j3,j4列，构成新矩阵。</td>
+</tr>
+<tr>
+<td>A([i2: -1:i1],:)</td>
+<td>以逆序提出矩阵 A 的第 i1~i2 行，构成新矩阵。</td>
+</tr>
+<tr>
+<td>A(:,[j2:-1 :j1])</td>
+<td>以逆序提出矩阵 A 的第 j1~j2 列，构成新矩阵。</td>
+</tr>
+<tr>
+<td>[A,B]及[A;B]</td>
+<td>将矩阵 A 和 B 拼接成新矩阵。前者水平拼接，后者垂直拼接。</td>
+</tr>
+<tr>
+<td>diag(A,k)</td>
+<td>抽取矩阵 A 的第 k 条对角线元素向量（主对角线编号为 0，上方的编号依次加 1，下方的编号依次减 1）；若 A 为向量，生成一个以 A 为第 k 对角线元素的方阵</td>
+</tr>
+<tr>
+<td>tril(A,k)及triu(A,k)</td>
+<td>抽取矩阵 A 的第 k 条对角线下面的部分。对于后者，是对角线上面的部分。</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>表达式或命令函数</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>flipud(A)及fliplr(A)</td>
+<td>矩阵 A 进行上下翻转。对于后者，是左右反转。</td>
+</tr>
+<tr>
+<td>A’及A.’</td>
+<td>矩阵 A 的转置。对于后者，是共轭转置。</td>
+</tr>
+<tr>
+<td>rot90(A)</td>
+<td>矩阵 A 逆时针旋转 90 。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="3-矩阵的运算"><a href="#3-矩阵的运算" class="headerlink" title="3.矩阵的运算"></a>3.矩阵的运算</h1><p>det(A): 求矩阵A的行列式。                rref(A): 求矩阵A的行最简形。</p>
+<p>inv(A): 求方阵A的逆阵。                     rank(A): 求矩阵A的秩。</p>
+<p>size(A,i): 求矩阵A的行数和列数。其中i表示矩阵第几维的大小。</p>
+<p>eig(A): 求A的特征值及特征向量。</p>
+<h1 id="4-矩阵的数据处理"><a href="#4-矩阵的数据处理" class="headerlink" title="4.矩阵的数据处理"></a>4.矩阵的数据处理</h1><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>max(A)</td>
+<td>求向量或矩阵列的最大值</td>
+<td>min(A)</td>
+<td>求向量或矩阵列的最小值</td>
+</tr>
+<tr>
+<td>mean(A)</td>
+<td>求向量或矩阵的平均值</td>
+<td>median(A)</td>
+<td>求向量或矩阵列的中间值</td>
+</tr>
+<tr>
+<td>sum(A)</td>
+<td>求向量或矩阵列的元素和</td>
+<td>prod(A)</td>
+<td>求向量或矩阵列的元素乘积</td>
+</tr>
+<tr>
+<td>var(A)</td>
+<td>求向量或矩阵列的方差</td>
+<td>std(A)</td>
+<td>求向量或矩阵列的标准差</td>
+</tr>
+<tr>
+<td>cov(A)</td>
+<td>矩阵列向量之间的协方差矩阵</td>
+<td>corroef(A)</td>
+<td>矩阵列向量之间的相关系数矩阵</td>
+</tr>
+<tr>
+<td>length(A)</td>
+<td>求向量所含元素的个数</td>
+<td>find(A)</td>
+<td>求向量矩阵中非零元素的地址</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/28/maltab的矩阵运算/" data-id="cjk5iagls0000d8cqn4o9iq13" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-网页-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/06/16/网页-1/" class="article-date">
@@ -119,7 +309,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/16/网页-1/" data-id="cjiif1jyb000164cqny00qt7i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/16/网页-1/" data-id="cjk5iagt60003d8cq2jwhsopf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -169,7 +359,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/06/后缀树-应用/" data-id="cjiif1jz6000464cq8fi4k4lq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/06/后缀树-应用/" data-id="cjk5iagsq0002d8cqj1lpeykz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -239,7 +429,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/28/后缀树-构建/" data-id="cjiif1jz4000364cqfv1driw8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/28/后缀树-构建/" data-id="cjk5iagtu0005d8cqv4pgpnit" class="article-share-link">Share</a>
       
       
     </footer>
@@ -288,7 +478,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/25/吸烟者问题/" data-id="cjiif1jz1000264cqc16elkof" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/25/吸烟者问题/" data-id="cjk5iagtq0004d8cqn0f249en" class="article-share-link">Share</a>
       
       
     </footer>
@@ -333,7 +523,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/22/hello-world/" data-id="cjiif1jxa000064cq45xlt2se" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/22/hello-world/" data-id="cjk5iagsn0001d8cqraoyem68" class="article-share-link">Share</a>
       
       
     </footer>
@@ -361,7 +551,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
     </div>
   </div>
 
@@ -372,6 +562,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/07/28/maltab的矩阵运算/">maltab的矩阵运算</a>
+          </li>
         
           <li>
             <a href="/2018/06/16/网页-1/">网页-1</a>
@@ -387,10 +581,6 @@
         
           <li>
             <a href="/2018/05/25/吸烟者问题/">吸烟者问题</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/22/hello-world/">Hello World</a>
           </li>
         
       </ul>
