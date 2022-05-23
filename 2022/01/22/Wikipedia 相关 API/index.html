@@ -1,0 +1,824 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/fangao.jpg">
+  <link rel="icon" href="/img/fangao.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="kaimhong">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="wikipedia 使用教程https:&#x2F;&#x2F;pypi.org&#x2F;project&#x2F;wikipedia&#x2F; https:&#x2F;&#x2F;github.com&#x2F;goldsmith&#x2F;Wikipedia https:&#x2F;&#x2F;www.codenong.com&#x2F;s-getting-started-with-pythons-wikipedia-api&#x2F; 安装1pip install wikipedia   根据title搜索维基百科">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Wikipedia 相关 API">
+<meta property="og:url" content="http://kaimss.github.io/2022/01/22/Wikipedia%20%E7%9B%B8%E5%85%B3%20API/index.html">
+<meta property="og:site_name" content="kaimhong">
+<meta property="og:description" content="wikipedia 使用教程https:&#x2F;&#x2F;pypi.org&#x2F;project&#x2F;wikipedia&#x2F; https:&#x2F;&#x2F;github.com&#x2F;goldsmith&#x2F;Wikipedia https:&#x2F;&#x2F;www.codenong.com&#x2F;s-getting-started-with-pythons-wikipedia-api&#x2F; 安装1pip install wikipedia   根据title搜索维基百科">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-22T09:56:40.000Z">
+<meta property="article:modified_time" content="2022-05-23T11:05:59.248Z">
+<meta property="article:author" content="kaimhong">
+<meta property="article:tag" content="NLP">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Wikipedia 相关 API - kaimhong</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"kaimss.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>kaimhong</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Wikipedia 相关 API"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        kaimhong
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-01-22 17:56" pubdate>
+          2022年1月22日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          13k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          105 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Wikipedia 相关 API</h1>
+            
+            <div class="markdown-body">
+              
+              <h2 id="wikipedia-使用教程"><a href="#wikipedia-使用教程" class="headerlink" title="wikipedia 使用教程"></a>wikipedia 使用教程</h2><p><a target="_blank" rel="noopener" href="https://pypi.org/project/wikipedia/">https://pypi.org/project/wikipedia/</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/goldsmith/Wikipedia">https://github.com/goldsmith/Wikipedia</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.codenong.com/s-getting-started-with-pythons-wikipedia-api/">https://www.codenong.com/s-getting-started-with-pythons-wikipedia-api/</a></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">pip install wikipedia <br></code></pre></td></tr></table></figure>
+
+<h3 id="根据title搜索维基百科文章"><a href="#根据title搜索维基百科文章" class="headerlink" title="根据title搜索维基百科文章"></a>根据title搜索维基百科文章</h3><p>search()方法在Wikipedia中搜索作为其参数提供的查询，返回包含该查询的所有文章标题的列表。 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> wikipedia <br><span class="hljs-built_in">print</span>(wikipedia.search(<span class="hljs-string">&quot;Bill&quot;</span>))<br><span class="hljs-comment"># [&#x27;Bill&#x27;, &#x27;The Bill&#x27;, &#x27;Bill Nye&#x27;, &#x27;Bill Gates&#x27;, &#x27;Bills, Bills, Bills&#x27;, &#x27;Heartbeat bill&#x27;, &#x27;Bill Clinton&#x27;, &#x27;Buffalo Bill&#x27;, &#x27;Bill &amp; Ted&#x27;, &#x27;Kill Bill: Volume 1&#x27;] </span><br><br><span class="hljs-built_in">print</span>(wikipedia.search(<span class="hljs-string">&quot;Bill&quot;</span>, results=<span class="hljs-number">2</span>))<br><span class="hljs-comment"># [&#x27;Bill&#x27;, &#x27;The Bill&#x27;]</span><br></code></pre></td></tr></table></figure>
+
+<p> suggest()方法返回与作为参数输入的搜索查询相关的建议，如果找不到建议，它将返回” None”。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> wikipedia<br><span class="hljs-built_in">print</span>(wikipedia.suggest(<span class="hljs-string">&quot;Bill cliton&quot;</span>))<br><span class="hljs-comment"># bill clinton</span><br><span class="hljs-comment"># 输入了错误的&quot; Bill clinton&quot;，并返回了正确的建议&quot; bill clinton&quot;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="提取维基百科文章摘要"><a href="#提取维基百科文章摘要" class="headerlink" title="提取维基百科文章摘要"></a>提取维基百科文章摘要</h3><p>使用summary()方法提取Wikipedia文章的摘要。 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(wikipedia.summary(<span class="hljs-string">&quot;Ubuntu&quot;</span>))  <span class="hljs-comment"># 提取&quot; Ubuntu&quot;的摘要</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Ubuntu ( (listen)) is a free and open-source Linux distribution based on Debian. Ubuntu is officially released in three editions: Desktop, Server, and Core (for the internet of things devices and robots). Ubuntu is a popular operating system for cloud computing, with support for OpenStack.Ubuntu is released every six months, with long-term support (LTS) releases every two years. The latest release is 19.04 (&quot;Disco Dingo&quot;), and the most recent long-term support release is 18.04 LTS (&quot;Bionic Beaver&quot;), which is supported until 2028. Ubuntu is developed by Canonical and the community under a meritocratic governance model. Canonical provides security updates and support for each Ubuntu release, starting from the release date and until the release reaches its designated end-of-life (EOL) date. Canonical generates revenue through the sale of premium services related to Ubuntu. Ubuntu is named after the African philosophy of Ubuntu, which Canonical translates as&quot;humanity to others&quot; or&quot;I am what I am because of who we all are&quot;.</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p> 通过配置方法的sentences参数，我们可以自定义要显示的摘要文本中的句子数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(wikipedia.summary(<span class="hljs-string">&quot;Ubuntu&quot;</span>, sentences=<span class="hljs-number">2</span>))<br><span class="hljs-comment"># Ubuntu ( (listen)) is a free and open-source Linux distribution based on Debian. Ubuntu is officially released in three editions: Desktop, Server, and Core (for the internet of things devices and robots).</span><br></code></pre></td></tr></table></figure>
+
+<p>如果页面不存在或页面是明确的，则wikipedia.summary将引发”歧义消除错误”。 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(wikipedia.summary(<span class="hljs-string">&quot;key&quot;</span>))  <span class="hljs-comment"># 抛出DisambiguationError，因为有许多文章与&quot; key&quot;匹配。</span><br></code></pre></td></tr></table></figure>
+
+<p>通过更具体的查询，可以在输出中获得正确的摘要。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(wikipedia.summary(<span class="hljs-string">&quot;Key (cryptography)&quot;</span>))<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="维基百科页面对象"><a href="#维基百科页面对象" class="headerlink" title="维基百科页面对象"></a>维基百科页面对象</h3><p>为了获取Wikipedia页面的内容，类别，坐标，图像，链接和其他元数据，我们必须首先获取Wikipedia页面对象或页面的页面ID，可以通过page()方法来获取。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">wikipedia.page(<span class="hljs-string">&quot;Ubuntu&quot;</span>)  <span class="hljs-comment"># 返回一个WikipediaPage对象</span><br></code></pre></td></tr></table></figure>
+
+
+<p>然后调用该类的函数或者变量来获取关于文章的更多信息。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(wikipedia.page(<span class="hljs-string">&quot;Python&quot;</span>).content)  <span class="hljs-comment"># 完整纯文本内容(不包括图像，表格等)</span><br><span class="hljs-built_in">print</span>(wikipedia.page(<span class="hljs-string">&quot;Python&quot;</span>).url)  <span class="hljs-comment"># 页面的URL</span><br><span class="hljs-built_in">print</span>(wikipedia.page(<span class="hljs-string">&quot;Python&quot;</span>).references)  <span class="hljs-comment"># 外部链接的URL</span><br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(wikipedia.page(<span class="hljs-string">&quot;Python&quot;</span>).title)  <span class="hljs-comment"># 提取页面标题</span><br><span class="hljs-built_in">print</span>(wikipedia.page(<span class="hljs-string">&quot;Python&quot;</span>).categories)  <span class="hljs-comment"># 页面的类别列表</span><br><span class="hljs-built_in">print</span>(wikipedia.page(<span class="hljs-string">&quot;Ubuntu&quot;</span>).links)  <span class="hljs-comment"># 获取页面中存在链接的页面标题列表</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="根据坐标查找页面"><a href="#根据坐标查找页面" class="headerlink" title="根据坐标查找页面"></a>根据坐标查找页面</h4><p>geosearch()方法根据提供的坐标返回文章。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(wikipedia.geosearch(<span class="hljs-number">37.787</span>, -<span class="hljs-number">122.4</span>))<br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">[&#x27;140 New Montgomery&#x27;, &#x27;New Montgomery Street&#x27;, &#x27;Cartoon Art Museum&#x27;, &#x27;San Francisco Bay Area Planning and Urban Research Association&#x27;, &#x27;Academy of Art University&#x27;, &#x27;The Montgomery (San Francisco)&#x27;, &#x27;California Historical Society&#x27;, &#x27;Palace Hotel Residential Tower&#x27;, &#x27;St. Regis Museum Tower&#x27;, &#x27;Museum of the African Diaspora&#x27;]</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>同样，我们可以设置page()的坐标属性，并获取与地理位置有关的文章。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(wikipedia.page(<span class="hljs-number">37.787</span>, -<span class="hljs-number">122.4</span>))<br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">[&#x27;140 New Montgomery&#x27;, &#x27;New Montgomery Street&#x27;, &#x27;Cartoon Art Museum&#x27;, &#x27;San Francisco Bay Area Planning and Urban Research Association&#x27;, &#x27;Academy of Art University&#x27;, &#x27;The Montgomery (San Francisco)&#x27;, &#x27;California Historical Society&#x27;, &#x27;Palace Hotel Residential Tower&#x27;, &#x27;St. Regis Museum Tower&#x27;, &#x27;Museum of the African Diaspora&#x27;]</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+
+<h4 id="语言设定"><a href="#语言设定" class="headerlink" title="语言设定"></a>语言设定</h4><p>通过使用set_lang()方法可以将Wikipedia页面的语言自定义为某种语言。  每种语言都有一个标准的前缀代码，该代码作为参数传递给该方法。 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">wikipedia.set_lang(<span class="hljs-string">&quot;de&quot;</span>)  <br><span class="hljs-built_in">print</span>(wikipedia.summary(<span class="hljs-string">&quot;ubuntu&quot;</span>, sentences=<span class="hljs-number">2</span>))  <span class="hljs-comment"># 以德语获取&quot; Ubuntu&quot; Wiki页面的摘要文本的前两个句子。</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Ubuntu (auch Ubuntu Linux) ist eine Linux-Distribution, die auf Debian basiert. Der [Name](http://www.google.com/search?hl=en&amp;q=allinurl%3Adocs.oracle.com+javase+docs+api+name) Ubuntu bedeutet auf Zulu etwa ?Menschlichkeit&quot; und bezeichnet eine afrikanische Philosophie.</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(wikipedia.languages())  <span class="hljs-comment"># 检查当前支持的ISO语言列表及其前缀。</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="检索维基百科页面中的图像和完整HTML页面内容"><a href="#检索维基百科页面中的图像和完整HTML页面内容" class="headerlink" title="检索维基百科页面中的图像和完整HTML页面内容"></a>检索维基百科页面中的图像和完整HTML页面内容</h4><p>从Wikipedia页面获取图像。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(wikipedia.page(<span class="hljs-string">&quot;ubuntu&quot;</span>).images[<span class="hljs-number">0</span>])  <span class="hljs-comment">#  从Wikipedia的Ubuntu页面返回第一个图像的链接</span><br></code></pre></td></tr></table></figure>
+
+<p>获取HTML格式的完整Wikipedia页面。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(wikipedia.page(<span class="hljs-string">&quot;Ubuntu&quot;</span>).html())<br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">&lt;div class=&quot;mw-parser-output&quot;&gt;&lt;div role=&quot;note&quot; class=&quot;hatnote navigation-not-searchable&quot;&gt;For the African philosophy, see &lt;a href=&quot;/wiki/Ubuntu_philosophy&quot; title=&quot;Ubuntu philosophy&quot;&gt;Ubuntu philosophy&lt;/a&gt;. For other uses, see &lt;a href=&quot;/wiki/Ubuntu_(disambiguation)&quot; class=&quot;mw-disambig&quot; title=&quot;Ubuntu (disambiguation)&quot;&gt;Ubuntu (disambiguation)&lt;/a&gt;.&lt;/div&gt; &lt;div class=&quot;shortdescription nomobile noexcerpt noprint searchaux&quot; style=&quot;display:none&quot;&gt;Linux distribution based on Debian&lt;/div&gt; ...</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Wikipedia-API-使用教程"><a href="#Wikipedia-API-使用教程" class="headerlink" title="Wikipedia API 使用教程"></a>Wikipedia API 使用教程</h2><p><a target="_blank" rel="noopener" href="https://pypi.org/project/Wikipedia-API/">https://pypi.org/project/Wikipedia-API/</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/martin-majlis/Wikipedia-API/">https://github.com/martin-majlis/Wikipedia-API/</a></p>
+<h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">pip <span class="hljs-keyword">install</span> Wikipedia-API<br></code></pre></td></tr></table></figure>
+
+<p><code>Wikipedia-API</code>是</p>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> wikipediaapi<br><br>title = <span class="hljs-string">&quot;china&quot;</span><br>wiki = wikipediaapi.Wikipedia(<br>    language=<span class="hljs-string">&#x27;en&#x27;</span>,<br>    extract_format=wikipediaapi.ExtractFormat.WIKI<br>)<br>page = wiki.page(title)<br>language = <span class="hljs-string">&quot;zh&quot;</span><br>lpage = page.langlinks[language]  <span class="hljs-comment"># fr es ...</span><br><span class="hljs-built_in">print</span>(lpage.text)<br></code></pre></td></tr></table></figure>
+
+<h3 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h3><p>This package requires at least Python 3.4 to install because it’s using IntEnum.</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">pip <span class="hljs-keyword">install</span> wikipedia-api<br></code></pre></td></tr></table></figure>
+
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><p>Goal of <code>Wikipedia-API</code> is to provide simple and easy to use API for retrieving informations from Wikipedia. Bellow are examples of common use cases.</p>
+<h4 id="Importing"><a href="#Importing" class="headerlink" title="Importing"></a>Importing</h4><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elm"><span class="hljs-keyword">import</span> wikipediaapi<br></code></pre></td></tr></table></figure>
+
+<h4 id="How-To-Get-Single-Page"><a href="#How-To-Get-Single-Page" class="headerlink" title="How To Get Single Page"></a>How To Get Single Page</h4><p>Getting single page is straightforward. You have to initialize <code>Wikipedia</code> object and ask for page by its name. It’s parameter language has be one of <a target="_blank" rel="noopener" href="http://meta.wikimedia.org/wiki/List_of_Wikipedias">supported languages</a>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> <span class="hljs-type">wikipediaapi</span><br>    <span class="hljs-variable">wiki_wiki</span> <span class="hljs-operator">=</span> wikipediaapi.Wikipedia(<span class="hljs-string">&#x27;en&#x27;</span>)<br><br>    page_py = wiki_wiki.page(<span class="hljs-string">&#x27;Python_(programming_language)&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="How-To-Check-If-Wiki-Page-Exists"><a href="#How-To-Check-If-Wiki-Page-Exists" class="headerlink" title="How To Check If Wiki Page Exists"></a>How To Check If Wiki Page Exists</h4><p>For checking, whether page exists, you can use function <code>exists</code>.</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs axapta">page_py = wiki_wiki.page(<span class="hljs-string">&#x27;Python_(programming_language)&#x27;</span>)<br><span class="hljs-keyword">print</span>(<span class="hljs-string">&quot;Page - Exists: %s&quot;</span> % page_py.<span class="hljs-keyword">exists</span>())<br><span class="hljs-meta"># Page - Exists: True</span><br><br>page_missing = wiki_wiki.page(<span class="hljs-string">&#x27;NonExistingPageWithStrangeName&#x27;</span>)<br><span class="hljs-keyword">print</span>(<span class="hljs-string">&quot;Page - Exists: %s&quot;</span> %     page_missing.<span class="hljs-keyword">exists</span>())<br><span class="hljs-meta"># Page - Exists: False</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="How-To-Get-Page-Summary"><a href="#How-To-Get-Page-Summary" class="headerlink" title="How To Get Page Summary"></a>How To Get Page Summary</h4><p>Class <code>WikipediaPage</code> has property <code>summary</code>, which returns description of Wiki page.</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs perl">import wikipediaapi<br>    wiki_wiki = wikipediaapi.Wikipedia(<span class="hljs-string">&#x27;en&#x27;</span>)<br><br>    <span class="hljs-keyword">print</span>(<span class="hljs-string">&quot;Page - Title: %s&quot;</span> % page_py.title)<br>    <span class="hljs-comment"># Page - Title: Python (programming language)</span><br><br>    <span class="hljs-keyword">print</span>(<span class="hljs-string">&quot;Page - Summary: %s&quot;</span> % page_py.summary[<span class="hljs-number">0</span>:<span class="hljs-number">60</span>])<br>    <span class="hljs-comment"># Page - Summary: Python is a widely used high-level programming language for</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="How-To-Get-Page-URL"><a href="#How-To-Get-Page-URL" class="headerlink" title="How To Get Page URL"></a>How To Get Page URL</h4><p><code>WikipediaPage</code> has two properties with URL of the page. It is <code>fullurl</code> and <code>canonicalurl</code>.</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-keyword">print</span>(page_py.fullurl)<br><span class="hljs-meta"># https:<span class="hljs-comment">//en.wikipedia.org/wiki/Python_(programming_language)</span></span><br><br><span class="hljs-keyword">print</span>(page_py.canonicalurl)<br><span class="hljs-meta"># https:<span class="hljs-comment">//en.wikipedia.org/wiki/Python_(programming_language)</span></span><br></code></pre></td></tr></table></figure>
+
+<h4 id="How-To-Get-Full-Text"><a href="#How-To-Get-Full-Text" class="headerlink" title="How To Get Full Text"></a>How To Get Full Text</h4><p>To get full text of Wikipedia page you should use property <code>text</code> which constructs text of the page as concatanation of summary and sections with their titles and texts.</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs routeros">wiki_wiki = wikipediaapi.Wikipedia(<br>        <span class="hljs-attribute">language</span>=<span class="hljs-string">&#x27;en&#x27;</span>,<br>        <span class="hljs-attribute">extract_format</span>=wikipediaapi.ExtractFormat.WIKI<br>)<br><br>p_wiki = wiki_wiki.page(<span class="hljs-string">&quot;Test 1&quot;</span>)<br><span class="hljs-built_in">print</span>(p_wiki.text)<br><span class="hljs-comment"># Summary</span><br><span class="hljs-comment"># Section 1</span><br><span class="hljs-comment"># Text of section 1</span><br><span class="hljs-comment"># Section 1.1</span><br><span class="hljs-comment"># Text of section 1.1</span><br><span class="hljs-comment"># ...</span><br><br><br>wiki_html = wikipediaapi.Wikipedia(<br>        <span class="hljs-attribute">language</span>=<span class="hljs-string">&#x27;en&#x27;</span>,<br>        <span class="hljs-attribute">extract_format</span>=wikipediaapi.ExtractFormat.HTML<br>)<br>p_html = wiki_html.page(<span class="hljs-string">&quot;Test 1&quot;</span>)<br><span class="hljs-built_in">print</span>(p_html.text)<br><span class="hljs-comment"># &lt;p&gt;Summary&lt;/p&gt;</span><br><span class="hljs-comment"># &lt;h2&gt;Section 1&lt;/h2&gt;</span><br><span class="hljs-comment"># &lt;p&gt;Text of section 1&lt;/p&gt;</span><br><span class="hljs-comment"># &lt;h3&gt;Section 1.1&lt;/h3&gt;</span><br><span class="hljs-comment"># &lt;p&gt;Text of section 1.1&lt;/p&gt;</span><br><span class="hljs-comment"># ...</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="How-To-Get-Page-Sections"><a href="#How-To-Get-Page-Sections" class="headerlink" title="How To Get Page Sections"></a>How To Get Page Sections</h4><p>To get all top level sections of page, you have to use property <code>sections</code>. It returns list of <code>WikipediaPageSection</code>, so you have to use recursion to get all subsections.</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">def</span> print_sections(sections, level=<span class="hljs-number">0</span>):<br>        <span class="hljs-attribute">for</span> s in sections:<br>                <span class="hljs-attribute">print</span>(<span class="hljs-string">&quot;%s: %s - %s&quot;</span> % (<span class="hljs-string">&quot;*&quot;</span> * (level + <span class="hljs-number">1</span>), s.title, s.text[<span class="hljs-number">0</span>:<span class="hljs-number">40</span>]))<br>                <span class="hljs-attribute">print_sections</span>(s.sections, level + <span class="hljs-number">1</span>)<br><br><br><span class="hljs-attribute">print_sections</span>(page_py.sections)<br><span class="hljs-comment"># *: History - Python was conceived in the late 1980s,</span><br><span class="hljs-comment"># *: Features and philosophy - Python is a multi-paradigm programming l</span><br><span class="hljs-comment"># *: Syntax and semantics - Python is meant to be an easily readable</span><br><span class="hljs-comment"># **: Indentation - Python uses whitespace indentation, rath</span><br><span class="hljs-comment"># **: Statements and control flow - Python&#x27;s statements include (among other</span><br><span class="hljs-comment"># **: Expressions - Some Python expressions are similar to l</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="How-To-Get-Page-In-Other-Languages"><a href="#How-To-Get-Page-In-Other-Languages" class="headerlink" title="How To Get Page In Other Languages"></a>How To Get Page In Other Languages</h4><p>If you want to get other translations of given page, you should use property <code>langlinks</code>. It is map, where key is language code and value is <code>WikipediaPage</code>.</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs sas">def print_langlinks(<span class="hljs-keyword">page</span>):<br>        langlinks = <span class="hljs-keyword">page</span>.langlinks<br>        for k <span class="hljs-keyword">in</span> sorted(langlinks.keys()):<br>            v = langlinks[k]<br>            pr<span class="hljs-meta">int</span>(<span class="hljs-string">&quot;%s: %s - %s: %s&quot;</span> % (k, v.language, v.<span class="hljs-keyword">title</span>, v.fullurl))<br><br>print_langlinks(page_py)<br># af: af - Python (programmeertaal): https://af.wikipedia.org/wiki/Python_(programmeertaal)<br># als: als - Python (Programmiersprache): https://als.wikipedia.org/wiki/Python_(Programmiersprache)<br># an: an - Python: https://an.wikipedia.org/wiki/Python<br># ar: ar - بايثون: https://ar.wikipedia.org/wiki/<span class="hljs-title function_">%D8</span><span class="hljs-title function_">%A8</span><span class="hljs-title function_">%D8</span><span class="hljs-title function_">%A7</span><span class="hljs-title function_">%D9</span>%8A<span class="hljs-title function_">%D8</span><span class="hljs-title function_">%AB</span><span class="hljs-title function_">%D9</span>%88<span class="hljs-title function_">%D9</span>%86<br># <span class="hljs-keyword">as</span>: <span class="hljs-keyword">as</span> - পাইথন: https://<span class="hljs-keyword">as</span>.wikipedia.org/wiki/<span class="hljs-title function_">%E0</span><span class="hljs-title function_">%A6</span><span class="hljs-title function_">%AA</span><span class="hljs-title function_">%E0</span><span class="hljs-title function_">%A6</span><span class="hljs-title function_">%BE</span><span class="hljs-title function_">%E0</span><span class="hljs-title function_">%A6</span>%87<span class="hljs-title function_">%E0</span><span class="hljs-title function_">%A6</span><span class="hljs-title function_">%A5</span><span class="hljs-title function_">%E0</span><span class="hljs-title function_">%A6</span><span class="hljs-title function_">%A8</span><br><br>page_py_cs = page_py.langlinks[<span class="hljs-string">&#x27;cs&#x27;</span>]<br>pr<span class="hljs-meta">int</span>(<span class="hljs-string">&quot;Page - Summary: %s&quot;</span> % page_py_cs.summary[0:60])<br># <span class="hljs-keyword">Page</span> - Summary: Python (anglická výslovnost [ˈpaiθtən]) je vysokoúrovňový sk<br></code></pre></td></tr></table></figure>
+
+<h4 id="How-To-Get-Links-To-Other-Pages"><a href="#How-To-Get-Links-To-Other-Pages" class="headerlink" title="How To Get Links To Other Pages"></a>How To Get Links To Other Pages</h4><p>If you want to get all links to other wiki pages from given page, you need to use property <code>links</code>. It’s map, where key is page title and value is <code>WikipediaPage</code>.</p>
+<figure class="highlight hsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs hsp">def print_links(page):<br>        links = page.links<br>        <span class="hljs-keyword">for</span> <span class="hljs-keyword">title</span> in sorted(links.keys()):<br>            <span class="hljs-keyword">print</span>(<span class="hljs-string">&quot;%s: %s&quot;</span> % (<span class="hljs-keyword">title</span>, links[<span class="hljs-keyword">title</span>]))<br><br>print_links(page_py)<br><span class="hljs-meta"># <span class="hljs-number">3</span>ds Max: <span class="hljs-number">3</span>ds Max (id: ??, ns: <span class="hljs-number">0</span>)</span><br><span class="hljs-meta"># ?:: ?: (id: ??, ns: <span class="hljs-number">0</span>)</span><br><span class="hljs-meta"># ABC (programming language): ABC (programming language) (id: ??, ns: <span class="hljs-number">0</span>)</span><br><span class="hljs-meta"># ALGOL <span class="hljs-number">68</span>: ALGOL <span class="hljs-number">68</span> (id: ??, ns: <span class="hljs-number">0</span>)</span><br><span class="hljs-meta"># Abaqus: Abaqus (id: ??, ns: <span class="hljs-number">0</span>)</span><br><span class="hljs-meta"># ...</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="How-To-Get-Page-Categories"><a href="#How-To-Get-Page-Categories" class="headerlink" title="How To Get Page Categories"></a>How To Get Page Categories</h4><p>If you want to get all categories under which page belongs, you should use property <code>categories</code>. It’s map, where key is category title and value is <code>WikipediaPage</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">print_categories</span>(<span class="hljs-params">page</span>):<br>        categories = page.categories<br>        <span class="hljs-keyword">for</span> title <span class="hljs-keyword">in</span> <span class="hljs-built_in">sorted</span>(categories.keys()):<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;%s: %s&quot;</span> % (title, categories[title]))<br><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Categories&quot;</span>)<br>print_categories(page_py)<br><span class="hljs-comment"># Category:All articles containing potentially dated statements: ...</span><br><span class="hljs-comment"># Category:All articles with unsourced statements: ...</span><br><span class="hljs-comment"># Category:Articles containing potentially dated statements from August 2016: ...</span><br><span class="hljs-comment"># Category:Articles containing potentially dated statements from March 2017: ...</span><br><span class="hljs-comment"># Category:Articles containing potentially dated statements from September 2017: ...</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="How-To-Get-All-Pages-From-Category"><a href="#How-To-Get-All-Pages-From-Category" class="headerlink" title="How To Get All Pages From Category"></a>How To Get All Pages From Category</h4><p>To get all pages from given category, you should use property <code>categorymembers</code>. It returns all members of given category. You have to implement recursion and deduplication by yourself.</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs routeros">def print_categorymembers(categorymembers, <span class="hljs-attribute">level</span>=0, <span class="hljs-attribute">max_level</span>=1):<br>        <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> categorymembers.values():<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;%s: %s (ns: %d)&quot;</span> % (<span class="hljs-string">&quot;*&quot;</span> * (level + 1), c.title, c.ns))<br>            <span class="hljs-keyword">if</span> c.ns == wikipediaapi.Namespace.CATEGORY <span class="hljs-keyword">and</span> level &lt; max_level:<br>                print_categorymembers(c.categorymembers, <span class="hljs-attribute">level</span>=level + 1, <span class="hljs-attribute">max_level</span>=max_level)<br><br><br>cat = wiki_wiki.page(<span class="hljs-string">&quot;Category:Physics&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Category members: Category:Physics&quot;</span>)<br>print_categorymembers(cat.categorymembers)<br><br><span class="hljs-comment"># Category members: Category:Physics</span><br><span class="hljs-comment"># * Statistical mechanics (ns: 0)</span><br><span class="hljs-comment"># * Category:Physical quantities (ns: 14)</span><br><span class="hljs-comment"># ** Refractive index (ns: 0)</span><br><span class="hljs-comment"># ** Vapor quality (ns: 0)</span><br><span class="hljs-comment"># ** Electric susceptibility (ns: 0)</span><br><span class="hljs-comment"># ** Specific weight (ns: 0)</span><br><span class="hljs-comment"># ** Category:Viscosity (ns: 14)</span><br><span class="hljs-comment"># *** Brookfield Engineering (ns: 0)</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="How-To-See-Underlying-API-Call"><a href="#How-To-See-Underlying-API-Call" class="headerlink" title="How To See Underlying API Call"></a>How To See Underlying API Call</h4><p>If you have problems with retrieving data you can get URL of undrerlying API call. This will help you determine if the problem is in the library or somewhere else.</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">import wikipediaapi<br>import sys<br>wikipediaapi.log.set<span class="hljs-constructor">Level(<span class="hljs-params">level</span>=<span class="hljs-params">wikipediaapi</span>.<span class="hljs-params">logging</span>.DEBUG)</span><br><br># Set handler <span class="hljs-keyword">if</span> you use Python <span class="hljs-keyword">in</span> interactive mode<br>out_hdlr = wikipediaapi.logging.<span class="hljs-constructor">StreamHandler(<span class="hljs-params">sys</span>.<span class="hljs-params">stderr</span>)</span><br>out_hdlr.set<span class="hljs-constructor">Formatter(<span class="hljs-params">wikipediaapi</span>.<span class="hljs-params">logging</span>.Formatter(&#x27;%(<span class="hljs-params">asctime</span>)</span>s %(message)s&#x27;))<br>out_hdlr.set<span class="hljs-constructor">Level(<span class="hljs-params">wikipediaapi</span>.<span class="hljs-params">logging</span>.DEBUG)</span><br>wikipediaapi.log.add<span class="hljs-constructor">Handler(<span class="hljs-params">out_hdlr</span>)</span><br><br>wiki = wikipediaapi.<span class="hljs-constructor">Wikipedia(<span class="hljs-params">language</span>=&#x27;<span class="hljs-params">en</span>&#x27;)</span><br><br>page_ostrava = wiki.page(&#x27;Ostrava&#x27;)<br>print(page_ostrava.summary)<br># logger prints out: Request URL: http:<span class="hljs-comment">//en.wikipedia.org/w/api.php?action=query&amp;prop=extracts&amp;titles=Ostrava&amp;explaintext=1&amp;exsectionformat=wiki</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="External-Links"><a href="#External-Links" class="headerlink" title="External Links"></a>External Links</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/martin-majlis/Wikipedia-API/">GitHub</a></li>
+<li><a target="_blank" rel="noopener" href="https://pypi.python.org/pypi/Wikipedia-API/">PyPi</a></li>
+<li><a target="_blank" rel="noopener" href="https://travis-ci.org/martin-majlis/Wikipedia-API/">Travis</a></li>
+<li><a target="_blank" rel="noopener" href="http://wikipedia-api.readthedocs.io/">ReadTheDocs</a></li>
+</ul>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/NLP/" class="category-chain-item">NLP</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/NLP/">#NLP</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Wikipedia 相关 API</div>
+      <div>http://kaimss.github.io/2022/01/22/Wikipedia 相关 API/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>kaimhong</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年1月22日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/30/C++%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" title="C++ 内存模型">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C++ 内存模型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/28/Wikidump%20%E8%AF%AD%E6%96%99%E5%A4%84%E7%90%86/" title="Wikidump 语料处理">
+                        <span class="hidden-mobile">Wikidump 语料处理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
