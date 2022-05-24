@@ -16,24 +16,24 @@
   <meta name="author" content="kaimhong">
   <meta name="keywords" content="">
   
-    <meta name="description" content="定义BERThttps:&#x2F;&#x2F;github.com&#x2F;xu-song&#x2F;bert-as-language-model https:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;63030692&#x2F;how-do-i-use-bertformaskedlm-or-bertmodel-to-calculate-perplexity-of-a-sentence https:&#x2F;&#x2F;github.com&#x2F;">
+    <meta name="description" content="I&#x2F;O输出流：ostream 输入流：istream 输入输出流：iostream iostream中定义了输入流对象cin与输出流对象cout。 cin是一个istream类的对象，它从标准输入设备(键盘)获取数据，程序中的变量通过流提取运算符&gt;&gt;从流中提取数据。流提取符“&gt;&gt;”从流中提取数据时通常跳过输人流中的空格、tab键、换行符等空白字符。注意：只有在输入">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PPL 计算">
-<meta property="og:url" content="http://kaimss.github.io/2021/09/28/PPL%20%E8%AE%A1%E7%AE%97/index.html">
+<meta property="og:title" content="C++ 输入输出流">
+<meta property="og:url" content="http://kaimss.github.io/2020/02/23/C++%20%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%B5%81/index.html">
 <meta property="og:site_name" content="kaimhong">
-<meta property="og:description" content="定义BERThttps:&#x2F;&#x2F;github.com&#x2F;xu-song&#x2F;bert-as-language-model https:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;63030692&#x2F;how-do-i-use-bertformaskedlm-or-bertmodel-to-calculate-perplexity-of-a-sentence https:&#x2F;&#x2F;github.com&#x2F;">
+<meta property="og:description" content="I&#x2F;O输出流：ostream 输入流：istream 输入输出流：iostream iostream中定义了输入流对象cin与输出流对象cout。 cin是一个istream类的对象，它从标准输入设备(键盘)获取数据，程序中的变量通过流提取运算符&gt;&gt;从流中提取数据。流提取符“&gt;&gt;”从流中提取数据时通常跳过输人流中的空格、tab键、换行符等空白字符。注意：只有在输入">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-09-28T14:34:23.000Z">
-<meta property="article:modified_time" content="2022-05-22T14:43:32.724Z">
+<meta property="article:published_time" content="2020-02-23T15:28:02.000Z">
+<meta property="article:modified_time" content="2022-05-24T03:39:21.835Z">
 <meta property="article:author" content="kaimhong">
-<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>PPL 计算 - kaimhong</title>
+  <title>C++ 输入输出流 - kaimhong</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="PPL 计算"></span>
+            <span id="subtitle" data-typed-text="C++ 输入输出流"></span>
           
         </div>
 
@@ -212,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2021-09-28 22:34" pubdate>
-          2021年9月28日 晚上
+        <time datetime="2020-02-23 23:28" pubdate>
+          2020年2月23日 晚上
         </time>
       </span>
     
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          2.6k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          28 分钟
+          22 分钟
         
       </span>
     
@@ -273,28 +273,45 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">PPL 计算</h1>
+            <h1 style="display: none">C++ 输入输出流</h1>
             
             <div class="markdown-body">
               
-              <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><h2 id="BERT"><a href="#BERT" class="headerlink" title="BERT"></a>BERT</h2><p><a target="_blank" rel="noopener" href="https://github.com/xu-song/bert-as-language-model">https://github.com/xu-song/bert-as-language-model</a></p>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/63030692/how-do-i-use-bertformaskedlm-or-bertmodel-to-calculate-perplexity-of-a-sentence">https://stackoverflow.com/questions/63030692/how-do-i-use-bertformaskedlm-or-bertmodel-to-calculate-perplexity-of-a-sentence</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/ymcui/Chinese-BERT-wwm">https://github.com/ymcui/Chinese-BERT-wwm</a></p>
-<p>对于给定的sentence，按顺序依次mask掉一个token，并计算所预测单词的nll loss，将所有的token的loss求和再取平均，最后取以自然数为底的次方即为该句话的PPL。</p>
-<p>测试写法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer, BertForMaskedLM<br><span class="hljs-comment"># Load pre-trained model (weights)</span><br><span class="hljs-keyword">with</span> torch.no_grad():<br>    model = BertForMaskedLM.from_pretrained(<span class="hljs-string">&#x27;hfl/chinese-bert-wwm-ext&#x27;</span>)<br>    model.<span class="hljs-built_in">eval</span>()<br>    <span class="hljs-comment"># Load pre-trained model tokenizer (vocabulary)</span><br>    tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&#x27;hfl/chinese-bert-wwm-ext&#x27;</span>)<br>    sentence = <span class="hljs-string">&quot;我不会忘记和你一起奋斗的时光。&quot;</span><br>    tokenize_input = tokenizer.tokenize(sentence)<br>    tensor_input = torch.tensor([tokenizer.convert_tokens_to_ids(tokenize_input)])<br>    sen_len = <span class="hljs-built_in">len</span>(tokenize_input)<br>    sentence_loss = <span class="hljs-number">0.</span><br><br>    <span class="hljs-keyword">for</span> i, word <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(tokenize_input):<br>        <span class="hljs-comment"># add mask to i-th character of the sentence</span><br>        tokenize_input[i] = <span class="hljs-string">&#x27;[MASK]&#x27;</span><br>        mask_input = torch.tensor([tokenizer.convert_tokens_to_ids(tokenize_input)])<br><br>        output = model(mask_input)<br><br>        prediction_scores = output[<span class="hljs-number">0</span>]<br>        softmax = nn.Softmax(dim=<span class="hljs-number">0</span>)<br>        ps = softmax(prediction_scores[<span class="hljs-number">0</span>, i]).log()<br>        word_loss = ps[tensor_input[<span class="hljs-number">0</span>, i]]<br>        sentence_loss += word_loss.item()<br><br>        tokenize_input[i] = word<br>    ppl = np.exp(-sentence_loss/sen_len)<br>    <span class="hljs-built_in">print</span>(ppl)<br></code></pre></td></tr></table></figure>
+              <h1 id="I-x2F-O"><a href="#I-x2F-O" class="headerlink" title="I&#x2F;O"></a>I&#x2F;O</h1><p><strong>输出流：<code>ostream</code></strong></p>
+<p><strong>输入流：<code>istream</code></strong></p>
+<p><strong>输入输出流：<code>iostream</code></strong></p>
+<p><code>iostream</code>中定义了输入流对象<code>cin</code>与输出流对象<code>cout</code>。</p>
+<p><code>cin</code>是一个<code>istream</code>类的对象，它从标准输入设备(键盘)获取数据，程序中的变量通过流提取运算符<code>&gt;&gt;</code>从流中提取数据。流提取符“&gt;&gt;”从流中提取数据时通常跳过输人流中的空格、tab键、换行符等空白字符。<strong>注意</strong>：只有在输入完数据再按回车键后，该行数据才被送入键盘缓冲区，形成输入流，提取运算符<code>&gt;&gt;</code>才能从中提取数据。</p>
+<p><code>cout</code>是一个<code>ostream</code>类的对象，它通过流插入运算符<code>&lt;&lt;</code>向输出设备(屏幕)输出其后的变量。程序中的变量借由<code>cout</code>对象并通过流插入运算符<code>&lt;&lt;</code>向输出设备输出。</p>
+<p><strong>在定义流对象时，系统会在内存中开辟一段缓冲区，用来暂存输入输出流的数据。</strong></p>
+<h2 id="cin-gt-gt"><a href="#cin-gt-gt" class="headerlink" title="cin&gt;&gt;"></a>cin&gt;&gt;</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/*cin&gt;&gt;T</span><br><span class="hljs-comment">接受一个字符串，遇空格tab换行结束，返回cin对象。</span><br><span class="hljs-comment">&gt;&gt;(流提取符)用于从cin输入流中提取指定类型数据赋值给T</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
 
-<p>tensor思维的写法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">score</span>(<span class="hljs-params">model, tokenizer, sentence,  mask_token_id=<span class="hljs-number">103</span></span>):<br>  tensor_input = tokenizer.encode(sentence, return_tensors=<span class="hljs-string">&#x27;pt&#x27;</span>)<br>  repeat_input = tensor_input.repeat(tensor_input.size(-<span class="hljs-number">1</span>)-<span class="hljs-number">2</span>, <span class="hljs-number">1</span>)<br>  mask = torch.ones(tensor_input.size(-<span class="hljs-number">1</span>) - <span class="hljs-number">1</span>).diag(<span class="hljs-number">1</span>)[:-<span class="hljs-number">2</span>]<br>  masked_input = repeat_input.masked_fill(mask == <span class="hljs-number">1</span>, <span class="hljs-number">103</span>)<br>  labels = repeat_input.masked_fill( masked_input != <span class="hljs-number">103</span>, -<span class="hljs-number">100</span>)<br>  loss,_ = model(masked_input, masked_lm_labels=labels)<br>  result = np.exp(loss.item())<br>  <span class="hljs-keyword">return</span> result<br><br>s = score(model, tokenizer, <span class="hljs-string">&#x27;我不会忘记和你一起奋斗的时光。&#x27;</span>)<br><span class="hljs-built_in">print</span>(s)<br></code></pre></td></tr></table></figure>
+<p><strong>若缓冲区中第一个字符是空格、tab或换行这些分隔符时，cin&gt;&gt;会将其忽略并清除，继续读取下一个字符。</strong></p>
+<p><strong>若缓冲区为空，则继续等待。</strong></p>
+<p><strong>分隔符残留在缓冲区</strong>。</p>
+<h2 id="cin-get"><a href="#cin-get" class="headerlink" title="cin.get()"></a>cin.get()</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> cin.<span class="hljs-built_in">get</span>();<span class="hljs-comment">//接受一个字符(包括空格tab换行)并返回该字符的asc码值</span><br>istream&amp; cin.<span class="hljs-built_in">get</span>(<span class="hljs-type">char</span>&amp; var);<span class="hljs-comment">//接受一个字符(包括空格tab换行)</span><br>istream&amp; cin.<span class="hljs-built_in">get</span>(<span class="hljs-type">char</span>* s, streamsize n);<span class="hljs-comment">//以指定长度读取字符串(读取到n-1个字符)，遇换行符结束读取</span><br>istream&amp; cin.<span class="hljs-built_in">get</span>(<span class="hljs-type">char</span>* s,  streamsize  n, <span class="hljs-type">char</span> delim);<span class="hljs-comment">////以指定长度读取字符串，遇指定的字符delim结束读取</span><br><span class="hljs-comment">//还有两种get的重载形式，但暂时不用</span><br><span class="hljs-comment">//使用第三、四种get，注意结束符需要用第一或第二中get清除缓冲区的结束符，否则会出错</span><br></code></pre></td></tr></table></figure>
 
+<p><strong>结束符残留在缓冲区</strong>。</p>
+<h2 id="cin-getline"><a href="#cin-getline" class="headerlink" title="cin.getline()"></a>cin.getline()</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//从标准输入设备键盘读取一串指定长度的字符串，并以指定的结束符结束。</span><br>istream&amp; cin.<span class="hljs-built_in">getline</span>(<span class="hljs-type">char</span>* s, streamsize count); <br>istream&amp; cin.<span class="hljs-built_in">getline</span>(<span class="hljs-type">char</span>* s, streamsize count, <span class="hljs-type">char</span> delim);<br></code></pre></td></tr></table></figure>
 
+<p><strong>与cin.get()区别：</strong></p>
+<ul>
+<li><strong>结束符不会残留在缓冲区。</strong></li>
+<li><strong>cin.get(char*,int)当输入的字符串超长时，不会引起cin函数的错误，后面的cin操作会继续执行，只是直接从缓冲区中取数据。但是cin.getline(char*,int)当输入超长时，会引起cin函数的错误，后面的cin操作将不再执行。</strong></li>
+</ul>
+<h2 id="getline"><a href="#getline" class="headerlink" title="getline()"></a>getline()</h2><p>C++中定义了一个在std名字空间的全局函数getline，因为这个getline函数的参数使用了string字符串，所以声明在了&lt; string&gt;头文件中了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//从输入流is中读取一行到字符串str中,当遇到如下三种情况会结束读操作：1）到文件结束，2）遇到结束符，3）输入达到最大限度。</span><br><span class="hljs-function">istream&amp; <span class="hljs-title">getline</span><span class="hljs-params">(istream&amp; is, string&amp; str)</span></span>;<br><span class="hljs-function">istream&amp; <span class="hljs-title">getline</span><span class="hljs-params">(istream&amp; is, string&amp; str, <span class="hljs-type">char</span> delim)</span></span>;<br></code></pre></td></tr></table></figure>
 
-<h2 id="GPT-2"><a href="#GPT-2" class="headerlink" title="GPT-2"></a>GPT-2</h2><p><a target="_blank" rel="noopener" href="https://github.com/Morizeyao/GPT2-Chinese">https://github.com/Morizeyao/GPT2-Chinese</a></p>
-<p>官方的gpt-2不支持中文，且是BPE分词方式。对于中文，有NLPer训练出了中文的gpt-2模型，且分词采用的是bert tokenizer的分词方式。</p>
-<p>对于给定的sentence，若其长度为n，首先将其向左偏移一位作为label，将其去除末位作为input，将gpt-2的输出与label求cross entroy loss，再求以自然数为底的次方即为该句话的PPL。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer, GPT2LMHeadModel<br><span class="hljs-keyword">from</span> torch.nn <span class="hljs-keyword">import</span> CrossEntropyLoss<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">cal_ppl_bygpt2</span>():<br>    sens = [<span class="hljs-string">&quot;今天是个好日子。&quot;</span>, <span class="hljs-string">&quot;天今子日。个是好&quot;</span>, <span class="hljs-string">&quot;这个婴儿有900000克呢。&quot;</span>, <span class="hljs-string">&quot;我不会忘记和你一起奋斗的时光。&quot;</span>,<br>            <span class="hljs-string">&quot;我不会记忘和你一起奋斗的时光。&quot;</span>, <span class="hljs-string">&quot;会我记忘和你斗起一奋的时光。&quot;</span>]<br>    tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&quot;uer/gpt2-chinese-cluecorpussmall&quot;</span>)<br>    model = GPT2LMHeadModel.from_pretrained(<span class="hljs-string">&quot;uer/gpt2-chinese-cluecorpussmall&quot;</span>)<br>    inputs = tokenizer(sens, padding=<span class="hljs-string">&#x27;max_length&#x27;</span>, max_length=<span class="hljs-number">50</span>, truncation=<span class="hljs-literal">True</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)<br>    bs, sl = inputs[<span class="hljs-string">&#x27;input_ids&#x27;</span>].size()<br>    outputs = model(**inputs, labels=inputs[<span class="hljs-string">&#x27;input_ids&#x27;</span>])<br>    logits = outputs[<span class="hljs-number">1</span>]<br>    <span class="hljs-comment"># Shift so that tokens &lt; n predict n</span><br>    shift_logits = logits[:, :-<span class="hljs-number">1</span>, :].contiguous()<br>    shift_labels = inputs[<span class="hljs-string">&#x27;input_ids&#x27;</span>][:, <span class="hljs-number">1</span>:].contiguous()<br>    shift_attentions = inputs[<span class="hljs-string">&#x27;attention_mask&#x27;</span>][:, <span class="hljs-number">1</span>:].contiguous()<br>    <span class="hljs-comment"># Flatten the tokens</span><br>    loss_fct = CrossEntropyLoss(ignore_index=<span class="hljs-number">0</span>, reduction=<span class="hljs-string">&quot;none&quot;</span>)<br>    loss = loss_fct(shift_logits.view(-<span class="hljs-number">1</span>, shift_logits.size(-<span class="hljs-number">1</span>)), shift_labels.view(-<span class="hljs-number">1</span>)).detach().reshape(bs, -<span class="hljs-number">1</span>)<br>    meanloss = loss.<span class="hljs-built_in">sum</span>(<span class="hljs-number">1</span>) / shift_attentions.<span class="hljs-built_in">sum</span>(<span class="hljs-number">1</span>)<br>    ppl = torch.exp(meanloss).numpy().tolist()<br>    <span class="hljs-keyword">return</span> ppl<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    cal_ppl_bygpt2()<br></code></pre></td></tr></table></figure>
+<p><strong>注意，getline遇到结束符时，结束符不会残留在缓存中。因此，进行从键盘读取一行字符时，建议使用getline，较为安全。</strong></p>
+<p>注：如果输入流是文件输入流(即读取文件)，则就变为读取文件了。</p>
+<h2 id="gets"><a href="#gets" class="headerlink" title="gets()"></a>gets()</h2><p>gets是C中的库函数，在&lt; stdio.h&gt;申明，从标准输入设备读字符串，可以无限读取，不会判断上限，以回车结束或者EOF时停止读取，所以程序员应该确保buffer的空间足够大，以便在执行读操作时不发生溢出。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//函数原型：char *gets( char *buffer );</span><br></code></pre></td></tr></table></figure>
 
+<p>cin.good()与cin.fail()用于判断cin输入的类型是否符合要求</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> a;<br>cin &gt;&gt; a;<br><span class="hljs-keyword">if</span> (!cin.<span class="hljs-built_in">good</span>())<br>    <span class="hljs-comment">//输入类型错误</span><br><span class="hljs-comment">//do something...</span><br><br></code></pre></td></tr></table></figure>
 
+<p>另，</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// &lt;&lt;与&gt;&gt;的重载实例</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Complex</span> &#123;<br><span class="hljs-keyword">public</span>:<br>  <span class="hljs-keyword">friend</span> ostream&amp; <span class="hljs-keyword">operator</span> &lt;&lt; (ostream&amp;,Complex&amp;); <span class="hljs-comment">//声明重载运算符“&lt;&lt;”</span><br>  <span class="hljs-keyword">friend</span> istream&amp; <span class="hljs-keyword">operator</span> &gt;&gt; (istream&amp;,Complex&amp;); <span class="hljs-comment">//声明重载运算符“&gt;&gt;”</span><br><span class="hljs-keyword">private</span>:<br>  <span class="hljs-type">double</span> real;<br>  <span class="hljs-type">double</span> imag;<br>&#125;;<br>ostream&amp; <span class="hljs-keyword">operator</span> &lt;&lt; (ostream&amp; output,Complex&amp; c) &#123;<span class="hljs-comment">//定义重载运算符“&lt;&lt;”</span><br>  output&lt;&lt;<span class="hljs-string">&quot;(&quot;</span>&lt;&lt;c.real&lt;&lt;<span class="hljs-string">&quot;+&quot;</span>&lt;&lt;c.imag&lt;&lt;<span class="hljs-string">&quot;i)&quot;</span>;<br>  <span class="hljs-keyword">return</span> output;<br>&#125;<br>istream&amp; <span class="hljs-keyword">operator</span> &gt;&gt; (istream&amp; input,Complex&amp; c) &#123;<span class="hljs-comment">//定义重载运算符“&gt;&gt;”</span><br>  cout&lt;&lt;<span class="hljs-string">&quot;input real part and imaginary part of complex number:&quot;</span>;<br>  input&gt;&gt;c.real&gt;&gt;c.imag;<br>  <span class="hljs-keyword">return</span> input;<br>&#125;<br></code></pre></td></tr></table></figure>
               
             </div>
             <hr/>
@@ -311,7 +328,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/NLP/" class="category-chain-item">NLP</a>
+  <a href="/categories/C/" class="category-chain-item">C++</a>
   
   
 
@@ -326,7 +343,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/NLP/">#NLP</a>
+        <a href="/tags/C/">#C++</a>
       
     </div>
   
@@ -338,8 +355,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>PPL 计算</div>
-      <div>http://kaimss.github.io/2021/09/28/PPL 计算/</div>
+      <div>C++ 输入输出流</div>
+      <div>http://kaimss.github.io/2020/02/23/C++ 输入输出流/</div>
     </div>
     <div class="license-meta">
       
@@ -351,7 +368,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2021年9月28日</div>
+          <div>2020年2月23日</div>
         </div>
       
       
@@ -381,9 +398,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/11/28/Wikidump%20%E8%AF%AD%E6%96%99%E5%A4%84%E7%90%86/" title="Wikidump 语料处理">
+                      <a href="/2020/02/23/C++%20%E6%95%B0%E5%AD%97%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%BD%AC%E6%8D%A2/" title="C++ 数字与字符串的转换">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Wikidump 语料处理</span>
+                        <span class="hidden-mobile">C++ 数字与字符串的转换</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -391,8 +408,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/02/23/C++%20%E6%95%B0%E5%AD%97%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%BD%AC%E6%8D%A2/" title="C++ 数字与字符串的转换">
-                        <span class="hidden-mobile">C++ 数字与字符串的转换</span>
+                      <a href="/2019/05/08/Git%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="Git 常用命令">
+                        <span class="hidden-mobile">Git 常用命令</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

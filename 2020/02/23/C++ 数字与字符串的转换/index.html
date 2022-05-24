@@ -16,24 +16,24 @@
   <meta name="author" content="kaimhong">
   <meta name="keywords" content="">
   
-    <meta name="description" content="定义BERThttps:&#x2F;&#x2F;github.com&#x2F;xu-song&#x2F;bert-as-language-model https:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;63030692&#x2F;how-do-i-use-bertformaskedlm-or-bertmodel-to-calculate-perplexity-of-a-sentence https:&#x2F;&#x2F;github.com&#x2F;">
+    <meta name="description" content="C++的stringstream类(来源:&lt;sstream&gt;)1.字符串到数字 1234string str &#x3D; &quot;854&quot;;stringstream sstr(str);int x;sstr &gt;&gt; x;&#x2F;&#x2F;即从sstr中提取数据  2.数字到字符串 12345stringstream sstr;string str;double x &#x3D; 154.83;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PPL 计算">
-<meta property="og:url" content="http://kaimss.github.io/2021/09/28/PPL%20%E8%AE%A1%E7%AE%97/index.html">
+<meta property="og:title" content="C++ 数字与字符串的转换">
+<meta property="og:url" content="http://kaimss.github.io/2020/02/23/C++%20%E6%95%B0%E5%AD%97%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%BD%AC%E6%8D%A2/index.html">
 <meta property="og:site_name" content="kaimhong">
-<meta property="og:description" content="定义BERThttps:&#x2F;&#x2F;github.com&#x2F;xu-song&#x2F;bert-as-language-model https:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;63030692&#x2F;how-do-i-use-bertformaskedlm-or-bertmodel-to-calculate-perplexity-of-a-sentence https:&#x2F;&#x2F;github.com&#x2F;">
+<meta property="og:description" content="C++的stringstream类(来源:&lt;sstream&gt;)1.字符串到数字 1234string str &#x3D; &quot;854&quot;;stringstream sstr(str);int x;sstr &gt;&gt; x;&#x2F;&#x2F;即从sstr中提取数据  2.数字到字符串 12345stringstream sstr;string str;double x &#x3D; 154.83;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-09-28T14:34:23.000Z">
-<meta property="article:modified_time" content="2022-05-22T14:43:32.724Z">
+<meta property="article:published_time" content="2020-02-23T15:30:13.000Z">
+<meta property="article:modified_time" content="2022-05-24T03:37:12.465Z">
 <meta property="article:author" content="kaimhong">
-<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>PPL 计算 - kaimhong</title>
+  <title>C++ 数字与字符串的转换 - kaimhong</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="PPL 计算"></span>
+            <span id="subtitle" data-typed-text="C++ 数字与字符串的转换"></span>
           
         </div>
 
@@ -212,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2021-09-28 22:34" pubdate>
-          2021年9月28日 晚上
+        <time datetime="2020-02-23 23:30" pubdate>
+          2020年2月23日 晚上
         </time>
       </span>
     
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          2.2k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          28 分钟
+          19 分钟
         
       </span>
     
@@ -273,28 +273,43 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">PPL 计算</h1>
+            <h1 style="display: none">C++ 数字与字符串的转换</h1>
             
             <div class="markdown-body">
               
-              <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><h2 id="BERT"><a href="#BERT" class="headerlink" title="BERT"></a>BERT</h2><p><a target="_blank" rel="noopener" href="https://github.com/xu-song/bert-as-language-model">https://github.com/xu-song/bert-as-language-model</a></p>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/63030692/how-do-i-use-bertformaskedlm-or-bertmodel-to-calculate-perplexity-of-a-sentence">https://stackoverflow.com/questions/63030692/how-do-i-use-bertformaskedlm-or-bertmodel-to-calculate-perplexity-of-a-sentence</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/ymcui/Chinese-BERT-wwm">https://github.com/ymcui/Chinese-BERT-wwm</a></p>
-<p>对于给定的sentence，按顺序依次mask掉一个token，并计算所预测单词的nll loss，将所有的token的loss求和再取平均，最后取以自然数为底的次方即为该句话的PPL。</p>
-<p>测试写法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer, BertForMaskedLM<br><span class="hljs-comment"># Load pre-trained model (weights)</span><br><span class="hljs-keyword">with</span> torch.no_grad():<br>    model = BertForMaskedLM.from_pretrained(<span class="hljs-string">&#x27;hfl/chinese-bert-wwm-ext&#x27;</span>)<br>    model.<span class="hljs-built_in">eval</span>()<br>    <span class="hljs-comment"># Load pre-trained model tokenizer (vocabulary)</span><br>    tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&#x27;hfl/chinese-bert-wwm-ext&#x27;</span>)<br>    sentence = <span class="hljs-string">&quot;我不会忘记和你一起奋斗的时光。&quot;</span><br>    tokenize_input = tokenizer.tokenize(sentence)<br>    tensor_input = torch.tensor([tokenizer.convert_tokens_to_ids(tokenize_input)])<br>    sen_len = <span class="hljs-built_in">len</span>(tokenize_input)<br>    sentence_loss = <span class="hljs-number">0.</span><br><br>    <span class="hljs-keyword">for</span> i, word <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(tokenize_input):<br>        <span class="hljs-comment"># add mask to i-th character of the sentence</span><br>        tokenize_input[i] = <span class="hljs-string">&#x27;[MASK]&#x27;</span><br>        mask_input = torch.tensor([tokenizer.convert_tokens_to_ids(tokenize_input)])<br><br>        output = model(mask_input)<br><br>        prediction_scores = output[<span class="hljs-number">0</span>]<br>        softmax = nn.Softmax(dim=<span class="hljs-number">0</span>)<br>        ps = softmax(prediction_scores[<span class="hljs-number">0</span>, i]).log()<br>        word_loss = ps[tensor_input[<span class="hljs-number">0</span>, i]]<br>        sentence_loss += word_loss.item()<br><br>        tokenize_input[i] = word<br>    ppl = np.exp(-sentence_loss/sen_len)<br>    <span class="hljs-built_in">print</span>(ppl)<br></code></pre></td></tr></table></figure>
+              <h2 id="C-的stringstream类-来源-lt-sstream-gt"><a href="#C-的stringstream类-来源-lt-sstream-gt" class="headerlink" title="C++的stringstream类(来源:&lt;sstream&gt;)"></a>C++的stringstream类(来源:&lt;sstream&gt;)</h2><p><strong>1.字符串到数字</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++">string str = <span class="hljs-string">&quot;854&quot;</span>;<br><span class="hljs-function">stringstream <span class="hljs-title">sstr</span><span class="hljs-params">(str)</span></span>;<br><span class="hljs-type">int</span> x;<br>sstr &gt;&gt; x;<span class="hljs-comment">//即从sstr中提取数据</span><br></code></pre></td></tr></table></figure>
 
-<p>tensor思维的写法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">score</span>(<span class="hljs-params">model, tokenizer, sentence,  mask_token_id=<span class="hljs-number">103</span></span>):<br>  tensor_input = tokenizer.encode(sentence, return_tensors=<span class="hljs-string">&#x27;pt&#x27;</span>)<br>  repeat_input = tensor_input.repeat(tensor_input.size(-<span class="hljs-number">1</span>)-<span class="hljs-number">2</span>, <span class="hljs-number">1</span>)<br>  mask = torch.ones(tensor_input.size(-<span class="hljs-number">1</span>) - <span class="hljs-number">1</span>).diag(<span class="hljs-number">1</span>)[:-<span class="hljs-number">2</span>]<br>  masked_input = repeat_input.masked_fill(mask == <span class="hljs-number">1</span>, <span class="hljs-number">103</span>)<br>  labels = repeat_input.masked_fill( masked_input != <span class="hljs-number">103</span>, -<span class="hljs-number">100</span>)<br>  loss,_ = model(masked_input, masked_lm_labels=labels)<br>  result = np.exp(loss.item())<br>  <span class="hljs-keyword">return</span> result<br><br>s = score(model, tokenizer, <span class="hljs-string">&#x27;我不会忘记和你一起奋斗的时光。&#x27;</span>)<br><span class="hljs-built_in">print</span>(s)<br></code></pre></td></tr></table></figure>
+<p><strong>2.数字到字符串</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++">stringstream sstr;<br>string str;<br><span class="hljs-type">double</span> x = <span class="hljs-number">154.83</span>;<br>sstr &lt;&lt; x;<br>str = sstr.<span class="hljs-built_in">str</span>();<span class="hljs-comment">//或者sstr &gt;&gt; str;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>缺点：处理大量数据转换速度较慢。stringstream不会主动释放内存，如果要在程序中用同一个流，需要适时地清除一下缓存（用stream.str(“”)和stream.clear()).</li>
+<li>注：<code>&gt;&gt;</code>是流提取符，<code>&lt;&lt;</code>是流插入符</li>
+</ul>
+<h2 id="C标准库sprintf、sscanf函数-来源-lt-stdio-h-gt-or-lt-cstdio-gt"><a href="#C标准库sprintf、sscanf函数-来源-lt-stdio-h-gt-or-lt-cstdio-gt" class="headerlink" title="C标准库sprintf、sscanf函数(来源:&lt;stdio.h&gt; or &lt;cstdio&gt;)"></a>C标准库sprintf、sscanf函数(来源:&lt;stdio.h&gt; or &lt;cstdio&gt;)</h2><p><strong>1.用sprintf函数将数字转换成字符串(char[])</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> val = <span class="hljs-number">1234</span>;<br><span class="hljs-type">char</span> str[<span class="hljs-number">10</span>];<br><span class="hljs-built_in">sprintf</span>(str,<span class="hljs-string">&quot;%d&quot;</span>,val);<br></code></pre></td></tr></table></figure>
+
+<p><strong>2.用sscanf函数将字符串(char[])转换成数字</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span> str[] = <span class="hljs-string">&quot;15.455&quot;</span>;<br><span class="hljs-type">int</span> i;<br><span class="hljs-type">float</span> fp;<br><span class="hljs-built_in">sscanf</span>( str, <span class="hljs-string">&quot;%d&quot;</span>, &amp;i ); <span class="hljs-comment">// 将字符串转换成整数 i = 15</span><br><span class="hljs-built_in">sscanf</span>( str, <span class="hljs-string">&quot;%f&quot;</span>, &amp;fp ); <span class="hljs-comment">// 将字符串转换成浮点数 fp = 15.455000</span><br></code></pre></td></tr></table></figure>
 
 
 
-<h2 id="GPT-2"><a href="#GPT-2" class="headerlink" title="GPT-2"></a>GPT-2</h2><p><a target="_blank" rel="noopener" href="https://github.com/Morizeyao/GPT2-Chinese">https://github.com/Morizeyao/GPT2-Chinese</a></p>
-<p>官方的gpt-2不支持中文，且是BPE分词方式。对于中文，有NLPer训练出了中文的gpt-2模型，且分词采用的是bert tokenizer的分词方式。</p>
-<p>对于给定的sentence，若其长度为n，首先将其向左偏移一位作为label，将其去除末位作为input，将gpt-2的输出与label求cross entroy loss，再求以自然数为底的次方即为该句话的PPL。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BertTokenizer, GPT2LMHeadModel<br><span class="hljs-keyword">from</span> torch.nn <span class="hljs-keyword">import</span> CrossEntropyLoss<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">cal_ppl_bygpt2</span>():<br>    sens = [<span class="hljs-string">&quot;今天是个好日子。&quot;</span>, <span class="hljs-string">&quot;天今子日。个是好&quot;</span>, <span class="hljs-string">&quot;这个婴儿有900000克呢。&quot;</span>, <span class="hljs-string">&quot;我不会忘记和你一起奋斗的时光。&quot;</span>,<br>            <span class="hljs-string">&quot;我不会记忘和你一起奋斗的时光。&quot;</span>, <span class="hljs-string">&quot;会我记忘和你斗起一奋的时光。&quot;</span>]<br>    tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&quot;uer/gpt2-chinese-cluecorpussmall&quot;</span>)<br>    model = GPT2LMHeadModel.from_pretrained(<span class="hljs-string">&quot;uer/gpt2-chinese-cluecorpussmall&quot;</span>)<br>    inputs = tokenizer(sens, padding=<span class="hljs-string">&#x27;max_length&#x27;</span>, max_length=<span class="hljs-number">50</span>, truncation=<span class="hljs-literal">True</span>, return_tensors=<span class="hljs-string">&quot;pt&quot;</span>)<br>    bs, sl = inputs[<span class="hljs-string">&#x27;input_ids&#x27;</span>].size()<br>    outputs = model(**inputs, labels=inputs[<span class="hljs-string">&#x27;input_ids&#x27;</span>])<br>    logits = outputs[<span class="hljs-number">1</span>]<br>    <span class="hljs-comment"># Shift so that tokens &lt; n predict n</span><br>    shift_logits = logits[:, :-<span class="hljs-number">1</span>, :].contiguous()<br>    shift_labels = inputs[<span class="hljs-string">&#x27;input_ids&#x27;</span>][:, <span class="hljs-number">1</span>:].contiguous()<br>    shift_attentions = inputs[<span class="hljs-string">&#x27;attention_mask&#x27;</span>][:, <span class="hljs-number">1</span>:].contiguous()<br>    <span class="hljs-comment"># Flatten the tokens</span><br>    loss_fct = CrossEntropyLoss(ignore_index=<span class="hljs-number">0</span>, reduction=<span class="hljs-string">&quot;none&quot;</span>)<br>    loss = loss_fct(shift_logits.view(-<span class="hljs-number">1</span>, shift_logits.size(-<span class="hljs-number">1</span>)), shift_labels.view(-<span class="hljs-number">1</span>)).detach().reshape(bs, -<span class="hljs-number">1</span>)<br>    meanloss = loss.<span class="hljs-built_in">sum</span>(<span class="hljs-number">1</span>) / shift_attentions.<span class="hljs-built_in">sum</span>(<span class="hljs-number">1</span>)<br>    ppl = torch.exp(meanloss).numpy().tolist()<br>    <span class="hljs-keyword">return</span> ppl<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    cal_ppl_bygpt2()<br></code></pre></td></tr></table></figure>
+<h2 id="C标准库atoi等与itoa等函数-来源-lt-stdlib-h-gt-or-lt-cstdlib-gt"><a href="#C标准库atoi等与itoa等函数-来源-lt-stdlib-h-gt-or-lt-cstdlib-gt" class="headerlink" title="C标准库atoi等与itoa等函数(来源:&lt;stdlib.h&gt; or &lt;cstdlib&gt;)"></a>C标准库atoi等与itoa等函数(来源:&lt;stdlib.h&gt; or &lt;cstdlib&gt;)</h2><p><em><em>1.用atoi函数将字符串(char</em>)转换成数字</em>*</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//int atoi(char*);</span><br>string a = <span class="hljs-string">&quot;1234&quot;</span>;<br><span class="hljs-type">const</span> <span class="hljs-type">char</span> *b = <span class="hljs-string">&quot;1234&quot;</span>;<br><span class="hljs-type">char</span> c[<span class="hljs-number">5</span>]=<span class="hljs-string">&quot;1234&quot;</span>;<br><br><span class="hljs-type">int</span> d = <span class="hljs-built_in">atoi</span>(a.<span class="hljs-built_in">c_str</span>());<br><span class="hljs-type">int</span> e = <span class="hljs-built_in">atoi</span>(b);<br><span class="hljs-type">int</span> f = <span class="hljs-built_in">atoi</span>(c);<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">原型：long strtol(char* str, char** endptr, int base);</span><br><span class="hljs-comment">str：欲转换的字符串的起始地址；endptr：非法字符后的起始地址；base：将字符串按照base进制转换。</span><br><span class="hljs-comment">功能：把一个字符串以base进制转换成数字，将不能转换的部分存入endptr指向的地址。</span><br><span class="hljs-comment">*/</span><br><span class="hljs-type">char</span> szNumbers[] = <span class="hljs-string">&quot;2001 60c0c0 -1101110100110100100000 0x6fffff&quot;</span>;<br><span class="hljs-type">char</span> * pEnd;<br><span class="hljs-type">long</span> <span class="hljs-type">int</span> li1, li2, li3, li4;<br>li1 = <span class="hljs-built_in">strtol</span> (szNumbers,&amp;pEnd,<span class="hljs-number">10</span>);<br>li2 = <span class="hljs-built_in">strtol</span> (pEnd,&amp;pEnd,<span class="hljs-number">16</span>);<br>li3 = <span class="hljs-built_in">strtol</span> (pEnd,&amp;pEnd,<span class="hljs-number">2</span>);<br>li4 = <span class="hljs-built_in">strtol</span> (pEnd,<span class="hljs-literal">NULL</span>,<span class="hljs-number">0</span>);<br><br><span class="hljs-comment">//其他的类似函数</span><br><span class="hljs-comment">//atoi</span><br><span class="hljs-comment">//atol</span><br><span class="hljs-comment">//atoll</span><br><span class="hljs-comment">//atof</span><br><span class="hljs-comment">//strtod</span><br><span class="hljs-comment">//strtof</span><br><span class="hljs-comment">//strtol</span><br><span class="hljs-comment">//strtold</span><br><span class="hljs-comment">//strtoll</span><br><span class="hljs-comment">//strtoul</span><br><span class="hljs-comment">//strtoull</span><br></code></pre></td></tr></table></figure>
 
+<p><em><em>2.用itoa函数将数字转换成字符串(char</em>)</em>*</p>
+<ul>
+<li><strong>注：itoa函数非标准函数</strong></li>
+<li><strong>一个更标准的用法是采用sprintf（如上）</strong></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/*</span><br><span class="hljs-comment">原型：char* itoa(int value, char *str,int base);</span><br><span class="hljs-comment">value：欲转换的数字；str：目标字符串的地址；base：将数字转换成base进制的字符串。</span><br><span class="hljs-comment">功能：把一个数字转换成base进制的字符串。</span><br><span class="hljs-comment">*/</span><br><span class="hljs-type">int</span> num = <span class="hljs-number">125</span>;<br><span class="hljs-type">char</span> str[<span class="hljs-number">10</span>];<br><span class="hljs-built_in">itoa</span>(num, str, <span class="hljs-number">16</span>);<span class="hljs-comment">//str = 7d</span><br><br><span class="hljs-comment">//其他的类似函数</span><br><span class="hljs-comment">//itoa</span><br><span class="hljs-comment">//ltoa</span><br><span class="hljs-comment">//ultoa</span><br><span class="hljs-comment">//gcvt</span><br><span class="hljs-comment">//ecvt</span><br><br></code></pre></td></tr></table></figure>
 
+<h2 id="C-的to-string与stoi等函数-来源-lt-string-gt"><a href="#C-的to-string与stoi等函数-来源-lt-string-gt" class="headerlink" title="C++的to_string与stoi等函数(来源:&lt;string&gt;)"></a>C++的to_string与stoi等函数(来源:&lt;string&gt;)</h2><p><strong>1.用to_string函数将数字转换为字符串(string)</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">string <span class="hljs-title">to_string</span><span class="hljs-params">(T value)</span></span>;<br></code></pre></td></tr></table></figure>
+
+<p><strong>2.用stoi等函数将字符串(string)转换为数字</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/*</span><br><span class="hljs-comment">原型：int stoi(string str, size_t* idx = 0, int base = 10);</span><br><span class="hljs-comment">str：欲转换的数据；idx：目标字符串的起始转换地址；base：待转换数据的进制。</span><br><span class="hljs-comment">功能：把一个字符串按照base进制转换成数字，至str的第一个非法字符结束</span><br><span class="hljs-comment">*/</span><br>string str = <span class="hljs-string">&quot;115.5xy&quot;</span>;<br><span class="hljs-type">int</span> val = std::<span class="hljs-built_in">stoi</span>(str,<span class="hljs-number">0</span>,<span class="hljs-number">2</span>);<span class="hljs-comment">// val = 3</span><br><span class="hljs-type">long</span> val1 = std::<span class="hljs-built_in">stol</span>(str);<span class="hljs-comment">// val1 = 115</span><br><span class="hljs-type">float</span> val2 = std::<span class="hljs-built_in">stof</span>(str);<span class="hljs-comment">// val2 = 115.5</span><br><span class="hljs-comment">//其他类似函数</span><br><span class="hljs-comment">//stoi</span><br><span class="hljs-comment">//stol</span><br><span class="hljs-comment">//stoul</span><br><span class="hljs-comment">//stoll</span><br><span class="hljs-comment">//stof</span><br><span class="hljs-comment">//stod</span><br><span class="hljs-comment">//stold</span><br><br></code></pre></td></tr></table></figure>
               
             </div>
             <hr/>
@@ -311,7 +326,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/NLP/" class="category-chain-item">NLP</a>
+  <a href="/categories/C/" class="category-chain-item">C++</a>
   
   
 
@@ -326,7 +341,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/NLP/">#NLP</a>
+        <a href="/tags/C/">#C++</a>
       
     </div>
   
@@ -338,8 +353,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>PPL 计算</div>
-      <div>http://kaimss.github.io/2021/09/28/PPL 计算/</div>
+      <div>C++ 数字与字符串的转换</div>
+      <div>http://kaimss.github.io/2020/02/23/C++ 数字与字符串的转换/</div>
     </div>
     <div class="license-meta">
       
@@ -351,7 +366,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2021年9月28日</div>
+          <div>2020年2月23日</div>
         </div>
       
       
@@ -381,9 +396,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/11/28/Wikidump%20%E8%AF%AD%E6%96%99%E5%A4%84%E7%90%86/" title="Wikidump 语料处理">
+                      <a href="/2021/09/28/PPL%20%E8%AE%A1%E7%AE%97/" title="PPL 计算">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Wikidump 语料处理</span>
+                        <span class="hidden-mobile">PPL 计算</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -391,8 +406,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/02/23/C++%20%E6%95%B0%E5%AD%97%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%BD%AC%E6%8D%A2/" title="C++ 数字与字符串的转换">
-                        <span class="hidden-mobile">C++ 数字与字符串的转换</span>
+                      <a href="/2020/02/23/C++%20%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%B5%81/" title="C++ 输入输出流">
+                        <span class="hidden-mobile">C++ 输入输出流</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
