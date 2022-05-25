@@ -30,8 +30,6 @@
 <meta name="twitter:card" content="summary_large_image">
   
   
-    <meta name="referrer" content="no-referrer-when-downgrade">
-  
   
   <title>C++ 输入输出流 - kaimhong</title>
 
@@ -71,7 +69,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"kaimss.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"kaimss.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"EdIEK9hsBVkmTyzCv5r8vFmr-gzGzoHsz","app_key":"6XvQQL5QRrRFq6tBRvEkPH7p","server_url":"https://ediek9hs.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -241,6 +239,14 @@
     
 
     
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
     
   </div>
 
@@ -420,6 +426,34 @@
             </div>
 
             
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.16/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"EdIEK9hsBVkmTyzCv5r8vFmr-gzGzoHsz","appKey":"6XvQQL5QRrRFq6tBRvEkPH7p","path":"window.location.pathname","placeholder":"输入你的评论\n推荐填写email，可以收到回复通知噢~","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://ediek9hs.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
           </article>
         </div>
       </div>
@@ -518,20 +552,21 @@
 
   
     
-      <span id="busuanzi_container_site_pv" style="display: none">
+      <span id="leancloud-site-pv-container" style="display: none">
         总访问量 
-        <span id="busuanzi_value_site_pv"></span>
+        <span id="leancloud-site-pv"></span>
          次
       </span>
     
     
-      <span id="busuanzi_container_site_uv" style="display: none">
+      <span id="leancloud-site-uv-container" style="display: none">
         总访客数 
-        <span id="busuanzi_value_site_uv"></span>
+        <span id="leancloud-site-uv"></span>
          人
       </span>
     
     
+
   
 </div>
 
@@ -578,6 +613,23 @@
   </script>
 
 
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
 
 
 
@@ -722,7 +774,7 @@
 
   <script  src="/js/local-search.js" ></script>
 
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+  <script defer src="/js/leancloud.js" ></script>
 
 
 
