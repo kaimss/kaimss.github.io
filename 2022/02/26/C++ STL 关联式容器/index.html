@@ -16,22 +16,23 @@
   <meta name="author" content="kaimhong">
   <meta name="keywords" content="">
   
-    <meta name="description" content="程序的内存分配https:&#x2F;&#x2F;blog.csdn.net&#x2F;u013007900&#x2F;article&#x2F;details&#x2F;79338653 一个由C&#x2F;C++编译的程序占用的内存分为以下几个部分：  栈区（stack）— 由编译器自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。 堆区（heap） — 一般由程序员分配释放，若程序员不释放，程序结束时可能由OS（操作系统">
+    <meta name="description" content="pair数据类型关联式容器存储的是“键值对”形式的数据，其中第一个元素作为键（key），第二个元素作为值（value）。键值对”并不是普通类型数据，C++ STL 标准库提供了 pair 类模板，其专门用来将 2 个普通元素 first 和 second（可以是 C++ 基本数据类型、结构体、类自定的类型）创建成一个新元素&lt;first, second&gt;。 pair 类模板定义在&lt;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++ 内存模型">
-<meta property="og:url" content="http://kaimss.github.io/2022/01/30/C++%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:title" content="C++ STL 关联式容器">
+<meta property="og:url" content="http://kaimss.github.io/2022/02/26/C++%20STL%20%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8/index.html">
 <meta property="og:site_name" content="kaimhong">
-<meta property="og:description" content="程序的内存分配https:&#x2F;&#x2F;blog.csdn.net&#x2F;u013007900&#x2F;article&#x2F;details&#x2F;79338653 一个由C&#x2F;C++编译的程序占用的内存分为以下几个部分：  栈区（stack）— 由编译器自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。 堆区（heap） — 一般由程序员分配释放，若程序员不释放，程序结束时可能由OS（操作系统">
+<meta property="og:description" content="pair数据类型关联式容器存储的是“键值对”形式的数据，其中第一个元素作为键（key），第二个元素作为值（value）。键值对”并不是普通类型数据，C++ STL 标准库提供了 pair 类模板，其专门用来将 2 个普通元素 first 和 second（可以是 C++ 基本数据类型、结构体、类自定的类型）创建成一个新元素&lt;first, second&gt;。 pair 类模板定义在&lt;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-01-30T14:21:23.000Z">
-<meta property="article:modified_time" content="2022-05-24T06:27:10.080Z">
+<meta property="article:published_time" content="2022-02-26T14:21:23.000Z">
+<meta property="article:modified_time" content="2022-05-26T02:05:46.469Z">
 <meta property="article:author" content="kaimhong">
 <meta property="article:tag" content="C++">
+<meta property="article:tag" content="STL">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>C++ 内存模型 - kaimhong</title>
+  <title>C++ STL 关联式容器 - kaimhong</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -194,7 +195,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="C++ 内存模型"></span>
+            <span id="subtitle" data-typed-text="C++ STL 关联式容器"></span>
           
         </div>
 
@@ -210,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-01-30 22:21" pubdate>
-          2022年1月30日 晚上
+        <time datetime="2022-02-26 22:21" pubdate>
+          2022年2月26日 晚上
         </time>
       </span>
     
@@ -222,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.7k 字
+          5.6k 字
         
       </span>
     
@@ -233,7 +234,7 @@
         
         
         
-          31 分钟
+          47 分钟
         
       </span>
     
@@ -279,81 +280,67 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">C++ 内存模型</h1>
+            <h1 style="display: none">C++ STL 关联式容器</h1>
             
             <div class="markdown-body">
               
-              <h2 id="程序的内存分配"><a href="#程序的内存分配" class="headerlink" title="程序的内存分配"></a>程序的内存分配</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013007900/article/details/79338653">https://blog.csdn.net/u013007900/article/details/79338653</a></p>
-<p>一个由C&#x2F;C++编译的程序占用的内存分为以下几个部分：</p>
-<ul>
-<li>栈区（stack）— 由编译器自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。</li>
-<li>堆区（heap） — 一般由程序员分配释放，若程序员不释放，程序结束时可能由OS（操作系统）回收。注意它与数据结构中的堆是两回事，分配方式倒是类似于链表。</li>
-<li>全局区（静态区）（static）—，全局变量和静态变量的存储是放在一块的，初始化的全局变量和静态变量在一块区域，未初始化的全局变量和未初始化的静态变量在相邻的另一块区域。程序结束后由系统释放。</li>
-<li>文字常量区 —常量字符串就是放在这里的。程序结束后由系统释放。</li>
-<li>程序代码区—存放函数体的二进制代码。</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span>  a=<span class="hljs-number">0</span>;   全局初始化区    <br><br><span class="hljs-type">char</span> *p1;   全局未初始化区    <br><span class="hljs-function"><span class="hljs-type">int</span>  <span class="hljs-title">main</span><span class="hljs-params">()</span>    </span><br><span class="hljs-function"></span>&#123;    <br>  <span class="hljs-type">int</span>  b; <span class="hljs-comment">//栈    </span><br>  <span class="hljs-type">char</span>  s[]=<span class="hljs-string">&quot;abc&quot;</span>; <span class="hljs-comment">//栈    </span><br>  <span class="hljs-type">char</span>  *p2; <span class="hljs-comment">//栈    </span><br>  <span class="hljs-type">char</span>  *p3=<span class="hljs-string">&quot;123456&quot;</span>; <span class="hljs-comment">//123456/0在常量区，p3在栈上。    </span><br><br>  <span class="hljs-type">static</span> <span class="hljs-type">int</span> c =<span class="hljs-number">0</span>；<span class="hljs-comment">//全局（静态）初始化区    </span><br>  p1 =  (<span class="hljs-type">char</span>  *)<span class="hljs-built_in">malloc</span>(<span class="hljs-number">10</span>);  <span class="hljs-comment">//分配得来得10和20字节的区域就在堆区</span><br>  p2  = (<span class="hljs-type">char</span>  *)<span class="hljs-built_in">malloc</span>(<span class="hljs-number">20</span>);       <br>  <span class="hljs-built_in">strcpy</span>(p3,<span class="hljs-string">&quot;123456&quot;</span>); <span class="hljs-comment">//123456/0放在常量区，编译器可能会将它与p3所指向的&quot;123456&quot;  优化成一个地方。    </span><br>&#125;    <br><br></code></pre></td></tr></table></figure>
+              <h2 id="pair数据类型"><a href="#pair数据类型" class="headerlink" title="pair数据类型"></a>pair数据类型</h2><p>关联式容器存储的是“键值对”形式的数据，其中第一个元素作为键（key），第二个元素作为值（value）。键值对”并不是普通类型数据，<a target="_blank" rel="noopener" href="http://c.biancheng.net/cplus/">C++</a> <a target="_blank" rel="noopener" href="http://c.biancheng.net/stl/">STL</a> 标准库提供了 pair 类模板，其专门用来将 2 个普通元素 first 和 second（可以是 C++ 基本数据类型、结构体、类自定的类型）创建成一个新元素<code>&lt;first, second&gt;</code>。</p>
+<p>pair 类模板定义在<code>&lt;utility&gt;</code>头文件中。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;utility&gt;</span></span><br>pair&lt;string, <span class="hljs-type">double</span>&gt; pair1;<span class="hljs-comment">//空pair</span><br><span class="hljs-function">pair&lt;string, <span class="hljs-type">double</span>&gt; <span class="hljs-title">pair2</span><span class="hljs-params">(<span class="hljs-string">&quot;h&quot;</span>, <span class="hljs-number">0.3</span>)</span></span>;<span class="hljs-comment">//初始化</span><br><span class="hljs-function">pair&lt;string, <span class="hljs-type">double</span>&gt; <span class="hljs-title">pair3</span><span class="hljs-params">(pair2)</span></span>;<span class="hljs-comment">//复制构造</span><br></code></pre></td></tr></table></figure>
 
 
 
-<h2 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h2><p>不要将函数定义或变量声明放到头文件中，如果同一程序的其他两个文件包含了该头文件，此时同一个程序将包含同一个函数的两个定义，即多重声明问题，这会导致错误。头文件常包含以下内容：</p>
-<ul>
-<li>函数原型(函数声明)</li>
-<li>宏定义；#define或const定义的符号常量。</li>
-<li>结构声明</li>
-<li>类声明</li>
-<li>模板声明</li>
-<li>内联函数</li>
-</ul>
-<p>源代码文件用于具体实现，即头文件中所声明的函数或类的具体实现。</p>
-<p>注意，只需将源代码文件加入到项目中，而不用加入头文件。这是因为#include指令管理头文件。另外，不要使用#include来包含源代码文件，这样做将导致多重声明。</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/nei504293736/article/details/90200066">https://blog.csdn.net/nei504293736/article/details/90200066</a></p>
-<p>模板类的分离问题：</p>
-<ul>
-<li>声明和实现都写到.h文件中</li>
-<li>或者，声明写到.h中，实现写到.cpp中，同时在.cpp文件中声明具体的模板类(显式实例化)</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bd2e05aabf7a">https://www.jianshu.com/p/bd2e05aabf7a</a></p>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file">https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file</a></p>
-<h2 id="存储持续性、作用域和链接"><a href="#存储持续性、作用域和链接" class="headerlink" title="存储持续性、作用域和链接"></a>存储持续性、作用域和链接</h2><p>有4中内存方案：</p>
-<ul>
-<li>自动存储持续性，在函数定义中声明的 变量（包括函数参数）的存储持续性是自动的。它们在程序开始执行其所属的函数或代码块时被创建，在执行完函数或代码块时，它们使用的内存被释放。</li>
-<li>静态存储持续性，在函数定义外定义的变量和使用关键字static定义的变量的存储持续性都为静态。它们在程序整个运行过程中都存在。</li>
-<li>线程存储持续性，对于多线程来说，如果变量是使用关键字thread_local声明的，则其生命周期与所属的线程一样长。</li>
-<li>动态存储持续性，用new运算符分配的内存将一直存在，直到使用delete运算符将其释放或程序结束为止。这种内存的存储持续性为动态，有时被称为自由存储（free store）或堆（heap）。</li>
-</ul>
-<p>作用域(scope)描述了名称在文件的多大范围内可见。可分为局部和全局，作用域为局部的变量只在定义它的代码块中可用，作用域为全局的变量在定义位置到文件结尾之间都可用。</p>
-<p>链接性(linkage)描述了名称如何在不同单元间共享。链接性为外部的名称可在文件间共享，链接性为内部的名称只能由一个文件中的函数共享。</p>
-<h2 id="静态持续变量与static"><a href="#静态持续变量与static" class="headerlink" title="静态持续变量与static"></a>静态持续变量与static</h2><p>程序不会使用栈或者其他来管理静态变量，而是编译器会分配固定的内存块来存储静态变量，这样这些变量在整个程序执行期间一直存在。另外如果没有显式地初始化静态变量，编译器将把它设置为默认值。</p>
-<p>C++为静态存储持续性变量提供了3种链接性：</p>
-<ul>
-<li>外部链接性，可在其他文件中访问</li>
-<li>内部链接性，只能在当前文件中访问</li>
-<li>无链接性，只能在当前函数或代码块中访问</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> global = <span class="hljs-number">10</span>;  <span class="hljs-comment">//静态持续，外部链接</span><br><span class="hljs-type">static</span> <span class="hljs-type">int</span> one_file = <span class="hljs-number">50</span>;  <span class="hljs-comment">//静态持续，内部链接</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun1</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">static</span> <span class="hljs-type">int</span> count = <span class="hljs-number">0</span>;  <span class="hljs-comment">//静态持续，无链接性</span><br>    <span class="hljs-type">int</span> llama = <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">函数内的static限定表明该变量会一直驻留在内存中，而函数内的普通变量会随着函数结束而生命周期结束</span><br><span class="hljs-comment">函数外的static限定表明该变量是内部链接的，而函数外的普通变量是外部链接的</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+<h2 id="关联式容器-map"><a href="#关联式容器-map" class="headerlink" title="关联式容器 map"></a>关联式容器 map</h2><p><a target="_blank" rel="noopener" href="http://c.biancheng.net/view/7173.html">http://c.biancheng.net/view/7173.html</a></p>
+<p>map 容器存储的都是 pair 对象，也就是用 pair 类模板创建的键值对。其中，各个键值对的键和值可以是任意数据类型，包括 <a target="_blank" rel="noopener" href="http://c.biancheng.net/cplus/">C++</a> 基本数据类型（int、double 等）、使用结构体或类自定义的类型。</p>
+<blockquote>
+<p>通常情况下，map 容器中存储的各个键值对都选用 string 字符串作为键的类型。</p>
+</blockquote>
+<p>与此同时，在使用 map 容器存储多个键值对时，该容器会自动根据各键值对的键的大小，按照既定的规则进行排序。默认情况下，map 容器选用<code>std::less&lt;T&gt;</code>排序规则（其中 T 表示键的数据类型），其会根据键的大小对所有键值对做升序排序。当然，根据实际情况的需要，我们可以手动指定 map 容器的排序规则，既可以选用 <a target="_blank" rel="noopener" href="http://c.biancheng.net/stl/">STL</a> 标准库中提供的其它排序规则（比如<code>std::greater&lt;T&gt;</code>），也可以自定义排序规则。</p>
+<p>另外需要注意的是，使用 map 容器存储的各个键值对，键的值既不能重复也不能被修改。换句话说，map 容器中存储的各个键值对不仅键的值独一无二，键的类型也会用 const 修饰，这意味着只要键值对被存储到 map 容器中，其键的值将不能再做任何修改。</p>
+<blockquote>
+<p>前面提到，map 容器存储的都是 pair 类型的键值对元素，更确切的说，该容器存储的都是 pair&lt;const K, T&gt; 类型（其中 K 和 T 分别表示键和值的数据类型）的键值对元素。</p>
+</blockquote>
+<p>引入：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;map&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br></code></pre></td></tr></table></figure>
 
-<p>所有静态持续变量在整个程序执行期间都存在。fun1()中声明的变量count的作用域是局部且没有链接性，但是该变量会一直存留在内存中；global和one_file的作用域都为整个文件，而one_file的链接性为内部只能在本文件中使用它，而global的链接性为外部，因此可在其他程序文件中使用它。</p>
-<h2 id="extern与static"><a href="#extern与static" class="headerlink" title="extern与static"></a>extern与static</h2><p>链接性为外部的变量通常简称为外部变量，它们的存储持续性为静态，作用域为整个文件。外部变量是在函数外部定义的，其也可被称为全局变量。</p>
-<p>**单定义规则(One Definition Rule, ODR)**：变量只能由一次定义。C++提供了两种变量声明。一种是定义声明(defining declaration)或简称为定义(definition)，它给变量分配存储空间；另一种声明是引用声明(referencing declaration)或简称为声明(declaration)，它不给变量分配存储空间，因为它引用已有的变量。引用声明使用关键字extern，且不进行初始化。</p>
-<p>引用声明使用关键字extern，且不进行初始化；否则，声明为定义，导致分配存储空间。如果要在多个文件中使用外部变量，只需在一个文件中包含该变量的定义(当定义规则)，但在使用该变量的其他所有文件中，都必须使用关键字extern声明它。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//file1.cpp</span><br><span class="hljs-type">int</span> a;  <span class="hljs-comment">//定义，默认为0</span><br><span class="hljs-type">static</span> <span class="hljs-type">int</span> b = <span class="hljs-number">4</span>;  <span class="hljs-comment">// 定义，因为初始化了</span><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> c = <span class="hljs-number">5</span>;<br><span class="hljs-keyword">extern</span> <span class="hljs-type">const</span> <span class="hljs-type">int</span> d = <span class="hljs-number">6</span>;<br><span class="hljs-keyword">extern</span> <span class="hljs-type">int</span> e = <span class="hljs-number">7</span>;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">fun1</span><span class="hljs-params">(<span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>    <span class="hljs-comment">//...</span><br>&#125;<br><br><span class="hljs-comment">//file2.cpp</span><br><span class="hljs-keyword">extern</span> <span class="hljs-type">int</span> a, d, e;  <span class="hljs-comment">//声明，因为有extern且未初始化</span><br><span class="hljs-type">int</span> b, c;  <span class="hljs-comment">// static, const的链接性均为内部</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">fun1</span><span class="hljs-params">(<span class="hljs-type">int</span>, <span class="hljs-type">int</span>)</span></span>;  <span class="hljs-comment">//函数声明的extern可省略</span><br></code></pre></td></tr></table></figure>
+<p>map容器的模板定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">template</span> &lt; <span class="hljs-keyword">class</span> <span class="hljs-title class_">Key</span>,                                     <span class="hljs-comment">// 指定键（key）的类型</span><br>           <span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>,                                       <span class="hljs-comment">// 指定值（value）的类型</span><br>           <span class="hljs-keyword">class</span> <span class="hljs-title class_">Compare</span> = less&lt;Key&gt;,                     <span class="hljs-comment">// 指定排序规则</span><br>           <span class="hljs-keyword">class</span> Alloc = allocator&lt;pair&lt;<span class="hljs-type">const</span> Key,T&gt; &gt;    <span class="hljs-comment">// 指定分配器对象的类型</span><br>           &gt; <span class="hljs-keyword">class</span> map;<br></code></pre></td></tr></table></figure>
 
-<h2 id="其他说明符和限定符"><a href="#其他说明符和限定符" class="headerlink" title="其他说明符和限定符"></a>其他说明符和限定符</h2><ul>
-<li><p>const</p>
-<p>声明为const的变量必须在声明的时候就初始化，并且一旦初始化后，其值就不可改变，且其声明一般是放在头文件中。const变量的链接性为内部。不过可以在定义时使用extern修饰来覆盖默认的内部链接性，将该变量的链接性为外部，</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">extern</span> <span class="hljs-type">const</span> <span class="hljs-type">int</span> states = <span class="hljs-number">50</span>; <span class="hljs-comment">// definition with external linkage</span><br></code></pre></td></tr></table></figure>
+<p>可以看到，map 容器模板有 4 个参数，其中后 2 个参数都设有默认值。大多数场景中，我们只需要设定前 2 个参数的值，有些场景可能会用到第 3 个参数，但最后一个参数几乎不会用到。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;map&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br>map&lt;string, <span class="hljs-type">int</span>&gt; m;<span class="hljs-comment">//构建空的map容器</span><br>map&lt;string, <span class="hljs-type">int</span>&gt; m&#123;&#123;<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-number">1</span>&#125;,&#123;<span class="hljs-string">&quot;b&quot;</span>,<span class="hljs-number">2</span>&#125;&#125;;<span class="hljs-comment">//构建map容器并初始化</span><br><span class="hljs-comment">//复制构造</span><br>map&lt;string, <span class="hljs-type">int</span>&gt; m&#123;<span class="hljs-built_in">make_pair</span>(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-number">1</span>), <span class="hljs-built_in">make_pair</span>(<span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-number">2</span>)&#125;;<span class="hljs-comment">//同上</span><br></code></pre></td></tr></table></figure>
 
-<p>此时，必须在所有使用该常量的文件中使用extern关键字来声明它，这与常规外部变量不同，定义常规外部变量时，不必使用extern关键字，但在使用该变量的其他文件中必须使用extern。</p>
-</li>
-<li><p>volatile</p>
-<p>提醒编译器它后面所定义的变量随时都有可能改变，因此编译后的程序每次需要存储或读取这个变量的时候，都会直接从变量地址中读取数据。如果没有volatile关键字，则编译器可能优化读取和存储，可能暂时使用寄存器中的值，如果这个变量由别的程序更新了的话，将出现不一致的现象。</p>
-</li>
-<li><p>mutable</p>
-<p>mutable修饰的变量表明其无论如何是可改变的。比如一个const对象，其成员变量不可变，此时若声明某个成员变量是mutable的，则它依旧可以通过该const对象来改变该成员变量的值。</p>
-</li>
-</ul>
-<h2 id="函数和链接性"><a href="#函数和链接性" class="headerlink" title="函数和链接性"></a>函数和链接性</h2><p>所有函数的存储持续性都为静态的，即在整个程序执行期间都存在。默认情况下，函数的链接性为外部，即可以在多个文件中共享，但是在另一个文件中可以不使用extern关键字来声明函数原型，而可以直接声明函数原型即可。如果使用static关键字修饰函数，则其链接性将变为内部，此时其只能在一个文件中使用而不能在其他文件中声明和使用，必须在函数原型和函数定义中都使用该关键字，此时如果外部有同名函数，该静态函数将覆盖外部同名函数，就同局部变量覆盖全局变量一样。</p>
+
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//插入</span><br>m.<span class="hljs-built_in">insert</span>(&#123;<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-number">1</span>&#125;);<br>m.<span class="hljs-built_in">insert</span>(<span class="hljs-built_in">make_pair</span>(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-number">1</span>));<br>m.<span class="hljs-built_in">insert</span>(<span class="hljs-built_in">pair</span>&lt;string, <span class="hljs-type">int</span>&gt;(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-number">1</span>));<br>m[<span class="hljs-string">&quot;a&quot;</span>] = <span class="hljs-number">1</span>;<br>m.<span class="hljs-built_in">emplace</span>(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-number">1</span>);<br><br><span class="hljs-comment">//查找</span><br>iter = m.<span class="hljs-built_in">find</span>(<span class="hljs-string">&quot;a&quot;</span>);<br><span class="hljs-keyword">if</span>(iter != m.<span class="hljs-built_in">end</span>())<br>    cout &lt;&lt; <span class="hljs-string">&quot;have found&quot;</span>;<br>num = m.<span class="hljs-built_in">count</span>(<span class="hljs-string">&quot;a&quot;</span>);<span class="hljs-comment">//num=0或1，存在为1，不存在为0</span><br><br><span class="hljs-comment">//删除</span><br>iter = m.<span class="hljs-built_in">find</span>(<span class="hljs-string">&quot;a&quot;</span>);<br>m.<span class="hljs-built_in">erase</span>(iter);<span class="hljs-comment">//迭代器删除</span><br>m.<span class="hljs-built_in">erase</span>(m.<span class="hljs-built_in">begin</span>(), m.<span class="hljs-built_in">end</span>());<span class="hljs-comment">//迭代器范围删除，等同于m.clear()</span><br>m.<span class="hljs-built_in">erase</span>(<span class="hljs-string">&quot;a&quot;</span>);<span class="hljs-comment">//关键字删除</span><br>m.<span class="hljs-built_in">clear</span>();<span class="hljs-comment">//清空</span><br><br><span class="hljs-comment">//迭代器</span><br>m.<span class="hljs-built_in">begin</span>();<br><br><span class="hljs-comment">//容量</span><br>m.<span class="hljs-built_in">size</span>();<br>m.<span class="hljs-built_in">max_size</span>();<br>m.<span class="hljs-built_in">empty</span>();<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="关联式容器-set"><a href="#关联式容器-set" class="headerlink" title="关联式容器 set"></a>关联式容器 set</h2><p>使用 set 容器存储的各个元素的值必须各不相同。更重要的是，从语法上讲 set 容器并没有强制对存储元素的类型做 const 修饰，即 set 容器中存储的元素的值是可以修改的。但是，C++ 标准为了防止用户修改容器中元素的值，对所有可能会实现此操作的行为做了限制，使得在正常情况下，用户是无法做到修改 set 容器中元素的值的。</p>
+<blockquote>
+<p>对于初学者来说，切勿尝试直接修改 set 容器中已存储元素的值，这很有可能破坏 set 容器中元素的有序性，最正确的修改 set 容器中元素值的做法是：先删除该元素，然后再添加一个修改后的元素。</p>
+</blockquote>
+<p>值得一提的是，set 容器定义于<code>&lt;set&gt;</code>头文件，并位于 std 命名空间中。</p>
+<p>set 容器的类模板定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">template</span> &lt; <span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>,                        <span class="hljs-comment">// 键 key 和值 value 的类型</span><br>           <span class="hljs-keyword">class</span> <span class="hljs-title class_">Compare</span> = less&lt;T&gt;,        <span class="hljs-comment">// 指定 set 容器内部的排序规则</span><br>           <span class="hljs-keyword">class</span> Alloc = allocator&lt;T&gt;      <span class="hljs-comment">// 指定分配器对象的类型</span><br>           &gt; <span class="hljs-keyword">class</span> set;<br></code></pre></td></tr></table></figure>
+
+<p>注意，由于 set 容器存储的各个键值对，其键和值完全相同，也就意味着它们的类型相同，因此 set 容器类模板的定义中，仅有第 1 个参数用于设定存储数据的类型。</p>
+<blockquote>
+<p>对于 set 类模板中的 3 个参数，后 2 个参数自带默认值，且几乎所有场景中只需使用前 2 个参数，第 3 个参数不会用到。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;set&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br>set&lt;string&gt; myset;<span class="hljs-comment">//创建空的set容器，采用默认的std::less&lt;T&gt;规则，会对存储的 string 类型元素做升序排序</span><br>set&lt;string&gt; myset&#123;<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>&#125;;<span class="hljs-comment">//创建set容器并初始化</span><br><br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//同map</span><br><span class="hljs-comment">//插入</span><br>myset.<span class="hljs-built_in">insert</span>(<span class="hljs-string">&quot;d&quot;</span>);<br>myset.<span class="hljs-built_in">emplace</span>(<span class="hljs-string">&quot;d&quot;</span>);<br><br><span class="hljs-comment">//查找</span><br>iter = myset.<span class="hljs-built_in">find</span>(<span class="hljs-string">&quot;a&quot;</span>);<br><span class="hljs-keyword">if</span>(iter != myset.<span class="hljs-built_in">end</span>())<br>    cout &lt;&lt; <span class="hljs-string">&quot;have found&quot;</span>;<br>num = myset.<span class="hljs-built_in">count</span>(<span class="hljs-string">&quot;a&quot;</span>);<span class="hljs-comment">//num=0或1，存在为1，不存在为0</span><br><br><span class="hljs-comment">//删除</span><br>iter = myset.<span class="hljs-built_in">find</span>(<span class="hljs-string">&quot;a&quot;</span>);<br>myset.<span class="hljs-built_in">erase</span>(iter);<span class="hljs-comment">//迭代器删除</span><br>myset.<span class="hljs-built_in">erase</span>(m.<span class="hljs-built_in">begin</span>(), m.<span class="hljs-built_in">end</span>());<span class="hljs-comment">//迭代器范围删除，等同于m.clear()</span><br>myset.<span class="hljs-built_in">erase</span>(<span class="hljs-string">&quot;a&quot;</span>);<span class="hljs-comment">//关键字删除</span><br>myset.<span class="hljs-built_in">clear</span>();<span class="hljs-comment">//清空</span><br><br><span class="hljs-comment">//迭代器</span><br>myset.<span class="hljs-built_in">begin</span>();<br><br><span class="hljs-comment">//容量</span><br>myset.<span class="hljs-built_in">size</span>();<br>myset.<span class="hljs-built_in">max_size</span>();<br>myset.<span class="hljs-built_in">empty</span>();<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//自定义数据类型</span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">ListNode</span> &#123;<br>    <span class="hljs-type">int</span> val;<br>    ListNode *next;<br>    <span class="hljs-built_in">ListNode</span>(<span class="hljs-type">int</span> x) : <span class="hljs-built_in">val</span>(x), <span class="hljs-built_in">next</span>(<span class="hljs-literal">NULL</span>) &#123;&#125;<br>    <span class="hljs-keyword">friend</span> <span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span>&lt; (<span class="hljs-type">const</span> shared_ptr&lt;ListNode&gt; &amp;p1, <span class="hljs-type">const</span> shared_ptr&lt;ListNode&gt; &amp;p2) &#123;<br>        <span class="hljs-keyword">return</span> p1-&gt;val &lt; p2-&gt;val;<br>    &#125;<br>    <span class="hljs-keyword">friend</span> <span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span>&gt; (<span class="hljs-type">const</span> shared_ptr&lt;ListNode&gt; &amp;p1, <span class="hljs-type">const</span> shared_ptr&lt;ListNode&gt; &amp;p2) &#123;<br>        <span class="hljs-keyword">return</span> p1-&gt;val &gt; p2-&gt;val;<br>    &#125;<br>&#125;;<br><span class="hljs-comment">//仿函数</span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">cmp</span> &#123;<br>    <span class="hljs-comment">//set/map要求key是不可更改的，所以重载比较运算符或者重写仿函数时，需要确保函数参数为const，对于指针，则需要确保其值不变即其指向不变</span><br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span> <span class="hljs-params">(ListNode* <span class="hljs-type">const</span>&amp;p1, ListNode* <span class="hljs-type">const</span>&amp;p2)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> p1-&gt;val &lt; p2-&gt;val;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">test_set2</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> a[] = &#123;<span class="hljs-number">5</span>, <span class="hljs-number">3</span>, <span class="hljs-number">8</span>, <span class="hljs-number">1</span> ,<span class="hljs-number">9</span>&#125;;<br>    <span class="hljs-keyword">auto</span> phead = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(<span class="hljs-number">-1</span>);<br>    <span class="hljs-keyword">auto</span> p = phead;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;v: a) &#123;<br>        p-&gt;next = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(v);<br>        p = p-&gt;next;<br>    &#125;<br>    <span class="hljs-comment">/*</span><br><span class="hljs-comment">     * set存储指针数据，第一种写法是符合预期的，第二种写法只会按照指针地址进行排序</span><br><span class="hljs-comment">     * 可以使用智能指针</span><br><span class="hljs-comment">     */</span><br>    set&lt;ListNode*, cmp&gt; ms;<span class="hljs-comment">//第一种写法</span><br>    <span class="hljs-comment">//set&lt;ListNode*&gt; ms;//第二种写法</span><br>    p = phead-&gt;next;<br>    <span class="hljs-keyword">while</span> (p) &#123;<br>        ms.<span class="hljs-built_in">insert</span>(p);<br>        p = p-&gt;next;<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp; v: ms) &#123;<br>        cout &lt;&lt; v-&gt;val &lt;&lt; <span class="hljs-string">&quot;  &quot;</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">test_set3</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">//使用智能指针</span><br>    <span class="hljs-type">int</span> a[] = &#123;<span class="hljs-number">5</span>, <span class="hljs-number">3</span>, <span class="hljs-number">8</span>, <span class="hljs-number">1</span> ,<span class="hljs-number">9</span>&#125;;<br>    <span class="hljs-keyword">auto</span> phead = <span class="hljs-built_in">make_shared</span>&lt;ListNode&gt;(<span class="hljs-number">-1</span>);<br>    <span class="hljs-keyword">auto</span> p = phead;<br>    set&lt;shared_ptr&lt;ListNode&gt;&gt; ms;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;v: a) &#123;<br>        <span class="hljs-keyword">auto</span> temp = <span class="hljs-built_in">make_shared</span>&lt;ListNode&gt;(v);<br>        <span class="hljs-keyword">auto</span> mp = p.<span class="hljs-built_in">get</span>();<br>        mp-&gt;next = temp.<span class="hljs-built_in">get</span>();<br>        p = temp;<br>        ms.<span class="hljs-built_in">insert</span>(temp);<br>        cout &lt;&lt; temp.<span class="hljs-built_in">get</span>()-&gt;val &lt;&lt; <span class="hljs-string">&quot;  &quot;</span> &lt;&lt; temp.<span class="hljs-built_in">get</span>() &lt;&lt; endl;<br>    &#125;<br>    cout &lt;&lt; endl;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp; v: ms) &#123;<br>        cout &lt;&lt; v-&gt;val &lt;&lt; <span class="hljs-string">&quot;  &quot;</span> &lt;&lt; v-&gt;next &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>    &#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">test_set4</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">//使用智能指针</span><br>    <span class="hljs-type">int</span> a[] = &#123;<span class="hljs-number">5</span>, <span class="hljs-number">3</span>, <span class="hljs-number">8</span>, <span class="hljs-number">1</span> ,<span class="hljs-number">9</span>&#125;;<br>    <span class="hljs-keyword">auto</span> phead = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(<span class="hljs-number">-1</span>);<br>    <span class="hljs-keyword">auto</span> p = phead;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;v: a) &#123;<br>        <span class="hljs-keyword">auto</span> temp = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(v);<br>        p-&gt;next = temp;<br>        p = p-&gt;next;<br>        cout &lt;&lt; temp-&gt;val &lt;&lt; <span class="hljs-string">&quot;  &quot;</span> &lt;&lt; temp &lt;&lt; endl;<br>    &#125;<br>    cout &lt;&lt; endl;<br>    set&lt;shared_ptr&lt;ListNode&gt;&gt; ms;<br>    p = phead-&gt;next;<br>    <span class="hljs-keyword">while</span> (p) &#123;<br>        <span class="hljs-keyword">auto</span> temp = <span class="hljs-built_in">shared_ptr</span>&lt;ListNode&gt;(p);<br>        ms.<span class="hljs-built_in">insert</span>(temp);<br>        p = p-&gt;next;<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp; v: ms) &#123;<br>        cout &lt;&lt; v-&gt;val &lt;&lt; <span class="hljs-string">&quot;  &quot;</span> &lt;&lt; v-&gt;next &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
 
               
             </div>
@@ -374,6 +361,13 @@
   <a href="/categories/C/" class="category-chain-item">C++</a>
   
   
+    <span>></span>
+    
+  <a href="/categories/C/STL/" class="category-chain-item">STL</a>
+  
+  
+
+  
 
       </span>
     
@@ -388,6 +382,8 @@
       
         <a href="/tags/C/">#C++</a>
       
+        <a href="/tags/STL/">#STL</a>
+      
     </div>
   
 </div>
@@ -398,8 +394,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>C++ 内存模型</div>
-      <div>http://kaimss.github.io/2022/01/30/C++ 内存模型/</div>
+      <div>C++ STL 关联式容器</div>
+      <div>http://kaimss.github.io/2022/02/26/C++ STL 关联式容器/</div>
     </div>
     <div class="license-meta">
       
@@ -411,7 +407,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年1月30日</div>
+          <div>2022年2月26日</div>
         </div>
       
       
@@ -441,9 +437,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/02/26/C++%20STL%20%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8/" title="C++ STL 关联式容器">
+                      <a href="/2022/04/04/C++%20STL%20%E6%97%A0%E5%BA%8F%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8/" title="C++ STL 无序关联式容器">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">C++ STL 关联式容器</span>
+                        <span class="hidden-mobile">C++ STL 无序关联式容器</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -451,8 +447,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/01/22/Wikipedia%20%E7%9B%B8%E5%85%B3%20API/" title="Wikipedia 相关 API">
-                        <span class="hidden-mobile">Wikipedia 相关 API</span>
+                      <a href="/2022/01/30/C++%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" title="C++ 内存模型">
+                        <span class="hidden-mobile">C++ 内存模型</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

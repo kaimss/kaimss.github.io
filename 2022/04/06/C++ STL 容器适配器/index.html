@@ -16,22 +16,23 @@
   <meta name="author" content="kaimhong">
   <meta name="keywords" content="">
   
-    <meta name="description" content="程序的内存分配https:&#x2F;&#x2F;blog.csdn.net&#x2F;u013007900&#x2F;article&#x2F;details&#x2F;79338653 一个由C&#x2F;C++编译的程序占用的内存分为以下几个部分：  栈区（stack）— 由编译器自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。 堆区（heap） — 一般由程序员分配释放，若程序员不释放，程序结束时可能由OS（操作系统">
+    <meta name="description" content="容器适配器 stackhttp:&#x2F;&#x2F;c.biancheng.net&#x2F;view&#x2F;6971.html stack 栈适配器是一种单端开口的容器（如图 1 所示），实际上该容器模拟的就是栈存储结构，即无论是向里存数据还是从中取数据，都只能从这一个开口实现操作。 由于 stack 适配器以模板类 stack&lt;T,Container&#x3D;deque&lt;T&gt;&gt;（其中 T 为存储元素">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++ 内存模型">
-<meta property="og:url" content="http://kaimss.github.io/2022/01/30/C++%20%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:title" content="C++ STL 容器适配器">
+<meta property="og:url" content="http://kaimss.github.io/2022/04/06/C++%20STL%20%E5%AE%B9%E5%99%A8%E9%80%82%E9%85%8D%E5%99%A8/index.html">
 <meta property="og:site_name" content="kaimhong">
-<meta property="og:description" content="程序的内存分配https:&#x2F;&#x2F;blog.csdn.net&#x2F;u013007900&#x2F;article&#x2F;details&#x2F;79338653 一个由C&#x2F;C++编译的程序占用的内存分为以下几个部分：  栈区（stack）— 由编译器自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。 堆区（heap） — 一般由程序员分配释放，若程序员不释放，程序结束时可能由OS（操作系统">
+<meta property="og:description" content="容器适配器 stackhttp:&#x2F;&#x2F;c.biancheng.net&#x2F;view&#x2F;6971.html stack 栈适配器是一种单端开口的容器（如图 1 所示），实际上该容器模拟的就是栈存储结构，即无论是向里存数据还是从中取数据，都只能从这一个开口实现操作。 由于 stack 适配器以模板类 stack&lt;T,Container&#x3D;deque&lt;T&gt;&gt;（其中 T 为存储元素">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-01-30T14:21:23.000Z">
-<meta property="article:modified_time" content="2022-05-24T06:27:10.080Z">
+<meta property="article:published_time" content="2022-04-06T14:21:23.000Z">
+<meta property="article:modified_time" content="2022-05-26T02:09:49.018Z">
 <meta property="article:author" content="kaimhong">
 <meta property="article:tag" content="C++">
+<meta property="article:tag" content="STL">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>C++ 内存模型 - kaimhong</title>
+  <title>C++ STL 容器适配器 - kaimhong</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -194,7 +195,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="C++ 内存模型"></span>
+            <span id="subtitle" data-typed-text="C++ STL 容器适配器"></span>
           
         </div>
 
@@ -210,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-01-30 22:21" pubdate>
-          2022年1月30日 晚上
+        <time datetime="2022-04-06 22:21" pubdate>
+          2022年4月6日 晚上
         </time>
       </span>
     
@@ -222,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.7k 字
+          4.5k 字
         
       </span>
     
@@ -233,7 +234,7 @@
         
         
         
-          31 分钟
+          38 分钟
         
       </span>
     
@@ -279,81 +280,85 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">C++ 内存模型</h1>
+            <h1 style="display: none">C++ STL 容器适配器</h1>
             
             <div class="markdown-body">
               
-              <h2 id="程序的内存分配"><a href="#程序的内存分配" class="headerlink" title="程序的内存分配"></a>程序的内存分配</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013007900/article/details/79338653">https://blog.csdn.net/u013007900/article/details/79338653</a></p>
-<p>一个由C&#x2F;C++编译的程序占用的内存分为以下几个部分：</p>
+              <h3 id="容器适配器-stack"><a href="#容器适配器-stack" class="headerlink" title="容器适配器 stack"></a>容器适配器 stack</h3><p><a target="_blank" rel="noopener" href="http://c.biancheng.net/view/6971.html">http://c.biancheng.net/view/6971.html</a></p>
+<p>stack 栈适配器是一种单端开口的容器（如图 1 所示），实际上该容器模拟的就是栈存储结构，即无论是向里存数据还是从中取数据，都只能从这一个开口实现操作。</p>
+<p>由于 stack 适配器以模板类 stack&lt;T,Container&#x3D;deque&lt;T&gt;&gt;（其中 T 为存储元素的类型，Container 表示底层容器的类型）的形式位于&lt;stack&gt;头文件中，并定义在 std 命名空间里。</p>
+<blockquote>
+<p>作为stack容器适配器的基础容器，其必须提供 empty()、size()、back()、push_back()、pop_back() 这 5 个成员函数，符合条件的序列式容器有vector、deque 和 list 。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stack&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br>stack&lt;<span class="hljs-type">int</span>&gt; s;<span class="hljs-comment">//创建空栈</span><br>stack&lt;<span class="hljs-type">int</span>, list&lt;<span class="hljs-type">int</span>&gt; &gt; s;<span class="hljs-comment">//创建使用list基础容器的栈</span><br><br>list&lt;<span class="hljs-type">int</span>&gt; values &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;;<br>stack&lt;<span class="hljs-type">int</span>,list&lt;<span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">my_stack</span> (values); <span class="hljs-comment">//从其他基础容器中构造(需要该容器的类型和 stack 底层使用的基础容器类型相同即可)</span><br><span class="hljs-comment">//者复制构造</span><br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++">s.<span class="hljs-built_in">empty</span>();<span class="hljs-comment">//栈为空时返回true</span><br>s.<span class="hljs-built_in">size</span>();<span class="hljs-comment">//返回栈中元素个数</span><br>s.<span class="hljs-built_in">top</span>();<span class="hljs-comment">//返回栈顶与元素的引用</span><br>s.<span class="hljs-built_in">push</span>(ele);<span class="hljs-comment">//将一个元素进栈</span><br>s.<span class="hljs-built_in">pop</span>();<span class="hljs-comment">//出栈</span><br>s.<span class="hljs-built_in">swap</span>(s1);<span class="hljs-comment">//交换两个栈的元素，需要注意的是，进行互换的 2 个 stack 适配器中存储的元素类型以及底层采用的基础容器类型，都必须相同</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="容器适配器-queue"><a href="#容器适配器-queue" class="headerlink" title="容器适配器 queue"></a>容器适配器 queue</h3><p><a target="_blank" rel="noopener" href="http://c.biancheng.net/view/6978.html">http://c.biancheng.net/view/6978.html</a></p>
+<p>queue 容器适配器有 2 个开口，其中一个开口专门用来输入数据，另一个专门用来输出数据。这种存储结构最大的特点是，最先进入 queue 的元素，也可以最先从 queue 中出来，即用此容器适配器存储数据具有“先进先出（简称 “FIFO” ）”的特点，因此 queue 又称为队列适配器。</p>
+<p>queue 容器适配器以模板类 queue&lt;T,Container&#x3D;deque&lt;T&gt;&gt;（其中 T 为存储元素的类型，Container 表示底层容器的类型）的形式位于&lt;queue&gt;头文件中，并定义在 std 命名空间里。</p>
+<blockquote>
+<p>作为 queue 容器适配器的基础容器，其必须提供 front()、back()、push_back()、pop_front()、empty() 和 size() 这几个成员函数，符合条件的序列式容器仅有 deque 和 list。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;queue&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br>queue&lt;<span class="hljs-type">int</span>&gt; q;<br><br>qeque&lt;<span class="hljs-type">int</span>&gt; values&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>&#125;;<br><span class="hljs-function">queue&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">my_queue</span><span class="hljs-params">(values)</span></span>;<span class="hljs-comment">//使用基础容器初始化 queue 适配器，由于 my_queue 底层采用的是 deque 容器，和 values 类型一致，且存储的也都是 int 类型元素，因此可以用 values 对 my_queue 进行初始化。</span><br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++">q.<span class="hljs-built_in">empty</span>();<br>q.<span class="hljs-built_in">size</span>();<br><br>q.<span class="hljs-built_in">front</span>();<br>q.<span class="hljs-built_in">back</span>();<br><br>q.<span class="hljs-built_in">push</span>(ele);<br>q.<span class="hljs-built_in">emplace</span>(ele);<br>q.<span class="hljs-built_in">pop</span>();<br><br>q.<span class="hljs-built_in">swap</span>(q2);<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="容器适配器-priority-queue"><a href="#容器适配器-priority-queue" class="headerlink" title="容器适配器 priority_queue"></a>容器适配器 priority_queue</h3><p>priority_queue 容器适配器模拟的也是队列这种存储结构，即使用此容器适配器存储元素只能“从一端进（称为队尾），从另一端出（称为队头）”，且每次只能访问 priority_queue 中位于队头的元素。</p>
+<p>但是，priority_queue 容器适配器中元素的存和取，遵循的并不是 “First in,First out”（先入先出）原则，而是“First in，Largest&#x2F;Smallest out”原则。</p>
+<p>priority_queue 容器适配器为了保证每次从队头移除的都是当前优先级最高的元素，每当有新元素进入，它都会根据既定的排序规则找到优先级最高的元素，并将其移动到队列的队头；同样，当 priority_queue 从队头移除出一个元素之后，它也会再找到当前优先级最高的元素，并将其移动到队头。</p>
+<p>基于 priority_queue 的这种特性，因此该容器适配器有被称为优先级队列。</p>
+<blockquote>
+<p>priority_queue 容器适配器“First in，Largest out”的特性，和它底层采用堆结构存储数据是分不开的。有关该容器适配器的底层实现</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="http://c.biancheng.net/stl/">STL</a> 中，priority_queue 容器适配器的定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T,        <br>        <span class="hljs-keyword">typename</span> Container=std::vector&lt;T&gt;,        <br>        <span class="hljs-keyword">typename</span> Compare=std::less&lt;T&gt; &gt; <br><span class="hljs-keyword">class</span> priority_queue&#123;    <br>    <span class="hljs-comment">//......</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以看到，priority_queue 容器适配器模板类最多可以传入 3 个参数，它们各自的含义如下：</p>
 <ul>
-<li>栈区（stack）— 由编译器自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。</li>
-<li>堆区（heap） — 一般由程序员分配释放，若程序员不释放，程序结束时可能由OS（操作系统）回收。注意它与数据结构中的堆是两回事，分配方式倒是类似于链表。</li>
-<li>全局区（静态区）（static）—，全局变量和静态变量的存储是放在一块的，初始化的全局变量和静态变量在一块区域，未初始化的全局变量和未初始化的静态变量在相邻的另一块区域。程序结束后由系统释放。</li>
-<li>文字常量区 —常量字符串就是放在这里的。程序结束后由系统释放。</li>
-<li>程序代码区—存放函数体的二进制代码。</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span>  a=<span class="hljs-number">0</span>;   全局初始化区    <br><br><span class="hljs-type">char</span> *p1;   全局未初始化区    <br><span class="hljs-function"><span class="hljs-type">int</span>  <span class="hljs-title">main</span><span class="hljs-params">()</span>    </span><br><span class="hljs-function"></span>&#123;    <br>  <span class="hljs-type">int</span>  b; <span class="hljs-comment">//栈    </span><br>  <span class="hljs-type">char</span>  s[]=<span class="hljs-string">&quot;abc&quot;</span>; <span class="hljs-comment">//栈    </span><br>  <span class="hljs-type">char</span>  *p2; <span class="hljs-comment">//栈    </span><br>  <span class="hljs-type">char</span>  *p3=<span class="hljs-string">&quot;123456&quot;</span>; <span class="hljs-comment">//123456/0在常量区，p3在栈上。    </span><br><br>  <span class="hljs-type">static</span> <span class="hljs-type">int</span> c =<span class="hljs-number">0</span>；<span class="hljs-comment">//全局（静态）初始化区    </span><br>  p1 =  (<span class="hljs-type">char</span>  *)<span class="hljs-built_in">malloc</span>(<span class="hljs-number">10</span>);  <span class="hljs-comment">//分配得来得10和20字节的区域就在堆区</span><br>  p2  = (<span class="hljs-type">char</span>  *)<span class="hljs-built_in">malloc</span>(<span class="hljs-number">20</span>);       <br>  <span class="hljs-built_in">strcpy</span>(p3,<span class="hljs-string">&quot;123456&quot;</span>); <span class="hljs-comment">//123456/0放在常量区，编译器可能会将它与p3所指向的&quot;123456&quot;  优化成一个地方。    </span><br>&#125;    <br><br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h2><p>不要将函数定义或变量声明放到头文件中，如果同一程序的其他两个文件包含了该头文件，此时同一个程序将包含同一个函数的两个定义，即多重声明问题，这会导致错误。头文件常包含以下内容：</p>
-<ul>
-<li>函数原型(函数声明)</li>
-<li>宏定义；#define或const定义的符号常量。</li>
-<li>结构声明</li>
-<li>类声明</li>
-<li>模板声明</li>
-<li>内联函数</li>
-</ul>
-<p>源代码文件用于具体实现，即头文件中所声明的函数或类的具体实现。</p>
-<p>注意，只需将源代码文件加入到项目中，而不用加入头文件。这是因为#include指令管理头文件。另外，不要使用#include来包含源代码文件，这样做将导致多重声明。</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/nei504293736/article/details/90200066">https://blog.csdn.net/nei504293736/article/details/90200066</a></p>
-<p>模板类的分离问题：</p>
-<ul>
-<li>声明和实现都写到.h文件中</li>
-<li>或者，声明写到.h中，实现写到.cpp中，同时在.cpp文件中声明具体的模板类(显式实例化)</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bd2e05aabf7a">https://www.jianshu.com/p/bd2e05aabf7a</a></p>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file">https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file</a></p>
-<h2 id="存储持续性、作用域和链接"><a href="#存储持续性、作用域和链接" class="headerlink" title="存储持续性、作用域和链接"></a>存储持续性、作用域和链接</h2><p>有4中内存方案：</p>
-<ul>
-<li>自动存储持续性，在函数定义中声明的 变量（包括函数参数）的存储持续性是自动的。它们在程序开始执行其所属的函数或代码块时被创建，在执行完函数或代码块时，它们使用的内存被释放。</li>
-<li>静态存储持续性，在函数定义外定义的变量和使用关键字static定义的变量的存储持续性都为静态。它们在程序整个运行过程中都存在。</li>
-<li>线程存储持续性，对于多线程来说，如果变量是使用关键字thread_local声明的，则其生命周期与所属的线程一样长。</li>
-<li>动态存储持续性，用new运算符分配的内存将一直存在，直到使用delete运算符将其释放或程序结束为止。这种内存的存储持续性为动态，有时被称为自由存储（free store）或堆（heap）。</li>
-</ul>
-<p>作用域(scope)描述了名称在文件的多大范围内可见。可分为局部和全局，作用域为局部的变量只在定义它的代码块中可用，作用域为全局的变量在定义位置到文件结尾之间都可用。</p>
-<p>链接性(linkage)描述了名称如何在不同单元间共享。链接性为外部的名称可在文件间共享，链接性为内部的名称只能由一个文件中的函数共享。</p>
-<h2 id="静态持续变量与static"><a href="#静态持续变量与static" class="headerlink" title="静态持续变量与static"></a>静态持续变量与static</h2><p>程序不会使用栈或者其他来管理静态变量，而是编译器会分配固定的内存块来存储静态变量，这样这些变量在整个程序执行期间一直存在。另外如果没有显式地初始化静态变量，编译器将把它设置为默认值。</p>
-<p>C++为静态存储持续性变量提供了3种链接性：</p>
-<ul>
-<li>外部链接性，可在其他文件中访问</li>
-<li>内部链接性，只能在当前文件中访问</li>
-<li>无链接性，只能在当前函数或代码块中访问</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> global = <span class="hljs-number">10</span>;  <span class="hljs-comment">//静态持续，外部链接</span><br><span class="hljs-type">static</span> <span class="hljs-type">int</span> one_file = <span class="hljs-number">50</span>;  <span class="hljs-comment">//静态持续，内部链接</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun1</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">static</span> <span class="hljs-type">int</span> count = <span class="hljs-number">0</span>;  <span class="hljs-comment">//静态持续，无链接性</span><br>    <span class="hljs-type">int</span> llama = <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">函数内的static限定表明该变量会一直驻留在内存中，而函数内的普通变量会随着函数结束而生命周期结束</span><br><span class="hljs-comment">函数外的static限定表明该变量是内部链接的，而函数外的普通变量是外部链接的</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
-
-<p>所有静态持续变量在整个程序执行期间都存在。fun1()中声明的变量count的作用域是局部且没有链接性，但是该变量会一直存留在内存中；global和one_file的作用域都为整个文件，而one_file的链接性为内部只能在本文件中使用它，而global的链接性为外部，因此可在其他程序文件中使用它。</p>
-<h2 id="extern与static"><a href="#extern与static" class="headerlink" title="extern与static"></a>extern与static</h2><p>链接性为外部的变量通常简称为外部变量，它们的存储持续性为静态，作用域为整个文件。外部变量是在函数外部定义的，其也可被称为全局变量。</p>
-<p>**单定义规则(One Definition Rule, ODR)**：变量只能由一次定义。C++提供了两种变量声明。一种是定义声明(defining declaration)或简称为定义(definition)，它给变量分配存储空间；另一种声明是引用声明(referencing declaration)或简称为声明(declaration)，它不给变量分配存储空间，因为它引用已有的变量。引用声明使用关键字extern，且不进行初始化。</p>
-<p>引用声明使用关键字extern，且不进行初始化；否则，声明为定义，导致分配存储空间。如果要在多个文件中使用外部变量，只需在一个文件中包含该变量的定义(当定义规则)，但在使用该变量的其他所有文件中，都必须使用关键字extern声明它。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//file1.cpp</span><br><span class="hljs-type">int</span> a;  <span class="hljs-comment">//定义，默认为0</span><br><span class="hljs-type">static</span> <span class="hljs-type">int</span> b = <span class="hljs-number">4</span>;  <span class="hljs-comment">// 定义，因为初始化了</span><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> c = <span class="hljs-number">5</span>;<br><span class="hljs-keyword">extern</span> <span class="hljs-type">const</span> <span class="hljs-type">int</span> d = <span class="hljs-number">6</span>;<br><span class="hljs-keyword">extern</span> <span class="hljs-type">int</span> e = <span class="hljs-number">7</span>;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">fun1</span><span class="hljs-params">(<span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n)</span> </span>&#123;<br>    <span class="hljs-comment">//...</span><br>&#125;<br><br><span class="hljs-comment">//file2.cpp</span><br><span class="hljs-keyword">extern</span> <span class="hljs-type">int</span> a, d, e;  <span class="hljs-comment">//声明，因为有extern且未初始化</span><br><span class="hljs-type">int</span> b, c;  <span class="hljs-comment">// static, const的链接性均为内部</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">fun1</span><span class="hljs-params">(<span class="hljs-type">int</span>, <span class="hljs-type">int</span>)</span></span>;  <span class="hljs-comment">//函数声明的extern可省略</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="其他说明符和限定符"><a href="#其他说明符和限定符" class="headerlink" title="其他说明符和限定符"></a>其他说明符和限定符</h2><ul>
-<li><p>const</p>
-<p>声明为const的变量必须在声明的时候就初始化，并且一旦初始化后，其值就不可改变，且其声明一般是放在头文件中。const变量的链接性为内部。不过可以在定义时使用extern修饰来覆盖默认的内部链接性，将该变量的链接性为外部，</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">extern</span> <span class="hljs-type">const</span> <span class="hljs-type">int</span> states = <span class="hljs-number">50</span>; <span class="hljs-comment">// definition with external linkage</span><br></code></pre></td></tr></table></figure>
-
-<p>此时，必须在所有使用该常量的文件中使用extern关键字来声明它，这与常规外部变量不同，定义常规外部变量时，不必使用extern关键字，但在使用该变量的其他文件中必须使用extern。</p>
+<li><p>typename T：指定存储元素的具体类型；</p>
 </li>
-<li><p>volatile</p>
-<p>提醒编译器它后面所定义的变量随时都有可能改变，因此编译后的程序每次需要存储或读取这个变量的时候，都会直接从变量地址中读取数据。如果没有volatile关键字，则编译器可能优化读取和存储，可能暂时使用寄存器中的值，如果这个变量由别的程序更新了的话，将出现不一致的现象。</p>
+<li><p>typename Container：指定 priority_queue 底层使用的基础容器，默认使用 vector 容器。</p>
+<blockquote>
+<p>作为 priority_queue 容器适配器的底层容器，其必须包含 empty()、size()、front()、push_back()、pop_back() 这几个成员函数，<a target="_blank" rel="noopener" href="http://c.biancheng.net/stl/">STL</a> 序列式容器中只有 vector 和 deque 容器符合条件。</p>
+</blockquote>
 </li>
-<li><p>mutable</p>
-<p>mutable修饰的变量表明其无论如何是可改变的。比如一个const对象，其成员变量不可变，此时若声明某个成员变量是mutable的，则它依旧可以通过该const对象来改变该成员变量的值。</p>
+<li><p>typename Compare：指定容器中评定元素优先级所遵循的排序规则，默认使用</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">std::less&lt;T&gt;<br></code></pre></td></tr></table></figure>
+
+<p>按照元素值从大到小进行排序 (大根堆)，还可以使用</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">std::greater&lt;T&gt;<br></code></pre></td></tr></table></figure>
+
+<p>按照元素值从小到大排序  (小根堆)，但更多情况下是使用自定义的排序规则。</p>
+<blockquote>
+<p>其中，std::less<T> 和 std::greater<T> 都是以函数对象的方式定义在 <function> 头文件中。关于如何自定义排序规则，后续章节会做详细介绍。</p>
+</blockquote>
 </li>
 </ul>
-<h2 id="函数和链接性"><a href="#函数和链接性" class="headerlink" title="函数和链接性"></a>函数和链接性</h2><p>所有函数的存储持续性都为静态的，即在整个程序执行期间都存在。默认情况下，函数的链接性为外部，即可以在多个文件中共享，但是在另一个文件中可以不使用extern关键字来声明函数原型，而可以直接声明函数原型即可。如果使用static关键字修饰函数，则其链接性将变为内部，此时其只能在一个文件中使用而不能在其他文件中声明和使用，必须在函数原型和函数定义中都使用该关键字，此时如果外部有同名函数，该静态函数将覆盖外部同名函数，就同局部变量覆盖全局变量一样。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;queue&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br>priority_queue&lt;<span class="hljs-type">int</span>&gt; values;<br><br><span class="hljs-comment">//使用普通数组</span><br><span class="hljs-type">int</span> values[]&#123;<span class="hljs-number">4</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>&#125;;<br>priority_queue&lt;<span class="hljs-type">int</span>&gt;<span class="hljs-built_in">copy_values</span>(values,values+<span class="hljs-number">4</span>);<span class="hljs-comment">//&#123;4,2,3,1&#125;</span><br><span class="hljs-comment">//使用序列式容器</span><br>array&lt;<span class="hljs-type">int</span>,4&gt;values&#123; <span class="hljs-number">4</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span> &#125;;<br>priority_queue&lt;<span class="hljs-type">int</span>&gt;<span class="hljs-built_in">copy_values</span>(values.<span class="hljs-built_in">begin</span>(),values.<span class="hljs-built_in">end</span>());<span class="hljs-comment">//&#123;4,2,3,1&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++">pq.<span class="hljs-built_in">empty</span>();<br>pq.<span class="hljs-built_in">size</span>();<br><br>pq.<span class="hljs-built_in">top</span>();<br>pq.<span class="hljs-built_in">push</span>();<br>pq.<span class="hljs-built_in">pop</span>();<br>pq.<span class="hljs-built_in">emplace</span>();<br><br>pq.<span class="hljs-built_in">swap</span>(pq2);<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//自定义数据类型之二</span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>&#123;<br>    <span class="hljs-type">int</span> x,y;<br>    <span class="hljs-built_in">Node</span>(<span class="hljs-type">int</span> a=<span class="hljs-number">0</span>, <span class="hljs-type">int</span> b=<span class="hljs-number">0</span>):<br>            <span class="hljs-built_in">x</span>(a), <span class="hljs-built_in">y</span>(b) &#123;&#125;<br>&#125;;<br><span class="hljs-comment">//重写仿函数</span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">cmp1</span>&#123;<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(Node a, Node b)</span></span>&#123;<br>        <span class="hljs-comment">//x大的Node优先级高，小根堆</span><br>        <span class="hljs-keyword">if</span>(a.x == b.x)<br>            <span class="hljs-keyword">return</span> a.y &gt; b.y;<br>        <span class="hljs-keyword">return</span> a.x &gt; b.x;<br>    &#125;<br>&#125;;<br><span class="hljs-comment">//重载比较运算符</span><br><span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span>&lt; (Node a, Node b) &#123;<span class="hljs-comment">//对应于less函数</span><br>    <span class="hljs-comment">//x值较小的Node优先级高，大根堆</span><br>    <span class="hljs-keyword">if</span>(a.x == b.x)<br>        <span class="hljs-keyword">return</span> a.y &lt; b.y;<br>    <span class="hljs-keyword">return</span> a.x &lt; b.x;<br>&#125;<br><span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span>&gt; (Node a, Node b)&#123;<span class="hljs-comment">//对应于greater函数</span><br>    <span class="hljs-comment">//x值较大的Node优先级高，小根堆</span><br>    <span class="hljs-keyword">if</span>( a.x == b.x )<br>        <span class="hljs-keyword">return</span> a.y &gt; b.y;<br>    <span class="hljs-keyword">return</span> a.x &gt; b.x;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">test_pq3</span><span class="hljs-params">()</span></span>&#123;<br>    priority_queue&lt;Node, vector&lt;Node&gt;, less&lt;&gt;&gt; p1;<br>    priority_queue&lt;Node, vector&lt;Node&gt;, greater&lt;&gt;&gt; p2;<br>    priority_queue&lt;Node, vector&lt;Node&gt;, cmp1&gt; p3;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">5</span>; ++i) &#123;<br>        <span class="hljs-type">int</span> x = <span class="hljs-built_in">rand</span>()%<span class="hljs-number">10</span>;<br>        <span class="hljs-type">int</span> y = <span class="hljs-built_in">rand</span>()%<span class="hljs-number">10</span>;<br>        p1.<span class="hljs-built_in">push</span>(<span class="hljs-built_in">Node</span>(x, y));<br>        p2.<span class="hljs-built_in">push</span>(<span class="hljs-built_in">Node</span>(x, y));<br>        p3.<span class="hljs-built_in">push</span>(<span class="hljs-built_in">Node</span>(x, y));<br>    &#125;<br><br><br>    <span class="hljs-keyword">while</span>(!p1.<span class="hljs-built_in">empty</span>())&#123;<br>        cout&lt;&lt; <span class="hljs-string">&quot;(&quot;</span> &lt;&lt; p1.<span class="hljs-built_in">top</span>().x &lt;&lt; <span class="hljs-string">&quot;, &quot;</span> &lt;&lt; p1.<span class="hljs-built_in">top</span>().y &lt;&lt; <span class="hljs-string">&quot;)    &quot;</span>;<br>        p1.<span class="hljs-built_in">pop</span>();<br>    &#125;<br>    cout &lt;&lt; endl;<br>    <span class="hljs-keyword">while</span>(!p2.<span class="hljs-built_in">empty</span>())&#123;<br>        cout&lt;&lt; <span class="hljs-string">&quot;(&quot;</span> &lt;&lt; p2.<span class="hljs-built_in">top</span>().x &lt;&lt; <span class="hljs-string">&quot;, &quot;</span> &lt;&lt; p2.<span class="hljs-built_in">top</span>().y &lt;&lt; <span class="hljs-string">&quot;)    &quot;</span>;<br>        p2.<span class="hljs-built_in">pop</span>();<br>    &#125;<br>    cout &lt;&lt; endl;<br>    <span class="hljs-keyword">while</span>(!p3.<span class="hljs-built_in">empty</span>())&#123;<br>        cout&lt;&lt; <span class="hljs-string">&quot;(&quot;</span> &lt;&lt; p3.<span class="hljs-built_in">top</span>().x &lt;&lt; <span class="hljs-string">&quot;, &quot;</span> &lt;&lt; p3.<span class="hljs-built_in">top</span>().y &lt;&lt; <span class="hljs-string">&quot;)    &quot;</span>;<br>        p3.<span class="hljs-built_in">pop</span>();<br>    &#125;<br>    cout &lt;&lt; endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">(9, 4)    (8, 8)    (4, 0)    (2, 4)    (1, 7)</span><br><span class="hljs-comment">(1, 7)    (2, 4)    (4, 0)    (8, 8)    (9, 4)</span><br><span class="hljs-comment">(1, 7)    (2, 4)    (4, 0)    (8, 8)    (9, 4)</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+
+
 
               
             </div>
@@ -374,6 +379,13 @@
   <a href="/categories/C/" class="category-chain-item">C++</a>
   
   
+    <span>></span>
+    
+  <a href="/categories/C/STL/" class="category-chain-item">STL</a>
+  
+  
+
+  
 
       </span>
     
@@ -388,6 +400,8 @@
       
         <a href="/tags/C/">#C++</a>
       
+        <a href="/tags/STL/">#STL</a>
+      
     </div>
   
 </div>
@@ -398,8 +412,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>C++ 内存模型</div>
-      <div>http://kaimss.github.io/2022/01/30/C++ 内存模型/</div>
+      <div>C++ STL 容器适配器</div>
+      <div>http://kaimss.github.io/2022/04/06/C++ STL 容器适配器/</div>
     </div>
     <div class="license-meta">
       
@@ -411,7 +425,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年1月30日</div>
+          <div>2022年4月6日</div>
         </div>
       
       
@@ -441,9 +455,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/02/26/C++%20STL%20%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8/" title="C++ STL 关联式容器">
+                      <a href="/2022/05/22/Hexo%20%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/" title="Hexo 配置教程">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">C++ STL 关联式容器</span>
+                        <span class="hidden-mobile">Hexo 配置教程</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -451,8 +465,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/01/22/Wikipedia%20%E7%9B%B8%E5%85%B3%20API/" title="Wikipedia 相关 API">
-                        <span class="hidden-mobile">Wikipedia 相关 API</span>
+                      <a href="/2022/04/04/C++%20STL%20%E6%97%A0%E5%BA%8F%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8/" title="C++ STL 无序关联式容器">
+                        <span class="hidden-mobile">C++ STL 无序关联式容器</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
